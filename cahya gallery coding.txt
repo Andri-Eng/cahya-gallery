@@ -1,0 +1,7160 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cahya Gallery F&B - The Best Burger & Layanan Keuangan</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- SheetJS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0e0807;
+      --bg-card: #170f0c;
+      --accent-orange: #f59e0b;
+      --accent-orange-dark: #d97706;
+      --accent-yellow: #fbbf24;
+      --primary: #e67e22;
+      --primary-dark: #d35400;
+      --secondary: #1e293b;
+      --accent-green: #10b981;
+      --accent-green-dark: #059669;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-dark: rgba(255, 255, 255, 0.12);
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =======================================================
+       1. LANDING PAGE STYLES (PERSIS DENGAN REFERENSI GAMBAR)
+       ======================================================= */
+    #page-landing {
+      min-height: 100vh;
+      background: radial-gradient(circle at 80% 40%, #2a150c 0%, #150a06 45%, #0e0807 90%);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Navigation Bar */
+    .landing-nav {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Circular Brand Logo Badge */
+    .brand-circle {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-img-wrapper {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255, 255, 255, 0.35);
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-circle:hover .logo-img-wrapper {
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .logo-badge {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2d180d 0%, #170b06 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo-badge i {
+      font-size: 18px;
+      color: var(--accent-orange);
+      margin-bottom: 2px;
+    }
+
+    .logo-badge span {
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .brand-name-text {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .brand-name-text span {
+      color: var(--accent-orange);
+      font-size: 14px;
+      display: block;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      position: relative;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-links li a:hover {
+      color: var(--accent-orange);
+    }
+
+    .nav-links li a.service-link {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #000 !important;
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links li a.service-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Social Icons */
+    .nav-socials {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-btn:hover {
+      background: var(--accent-orange);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero-container {
+      max-width: 1440px;
+      width: 100%;
+      margin: auto;
+      padding: 20px 48px 60px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 50px;
+      position: relative;
+    }
+
+    /* Left Content */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title-group {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .hero-title-solid {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 92px;
+      line-height: 0.92;
+      letter-spacing: 2px;
+      color: #ffffff;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+    }
+
+    .hero-title-outline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 92px;
+      line-height: 0.95;
+      letter-spacing: 2px;
+      color: transparent;
+      -webkit-text-stroke: 2.5px #ffffff;
+      text-transform: uppercase;
+    }
+
+    /* Burger Chalk / Sketch */
+    .sketch-burger-box {
+      width: 90px;
+      height: 75px;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sketch-burger-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+    }
+
+    /* 100% Premium Circular Badge */
+    .badge-premium-circle {
+      position: absolute;
+      right: 0;
+      top: -30px;
+      width: 115px;
+      height: 115px;
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      transform: rotate(-10deg);
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      animation: pulseBadge 3s infinite ease-in-out;
+    }
+
+    @keyframes pulseBadge {
+
+      0%,
+      100% {
+        transform: rotate(-10deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(-6deg) scale(1.05);
+      }
+    }
+
+    .badge-premium-circle .b-pct {
+      font-size: 24px;
+      font-weight: 900;
+      color: #000;
+      line-height: 1;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .badge-premium-circle .b-txt {
+      font-size: 13px;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: 0.5px;
+    }
+
+    /* White Divider Line */
+    .hero-divider {
+      width: 100%;
+      height: 5px;
+      background: #ffffff;
+      margin: 18px 0 28px;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Special Ingredients block */
+    .hero-special-block {
+      margin-bottom: 34px;
+    }
+
+    .hero-special-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .hero-special-desc {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* CTA Buttons */
+    .hero-btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-read-more {
+      padding: 14px 34px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0f0907;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-read-more:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    }
+
+    .btn-services-cta {
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-services-cta:hover {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+    }
+
+    .btn-services-cta i {
+      color: var(--accent-orange);
+    }
+
+    /* Right Hero Visual (Morph Culinary Showcase) */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .burger-glow-circle {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(217, 119, 6, 0.08) 50%, rgba(0, 0, 0, 0) 75%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      animation: pulseGlow 5s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    .hero-slider-frame {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      height: 420px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #231209 0%, #0d0605 100%);
+      border: 2px solid rgba(245, 158, 11, 0.35);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 158, 11, 0.2);
+      z-index: 2;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+    }
+
+    .hero-slider-frame:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(245, 158, 11, 0.35);
+    }
+
+    /* Morphing Slide Images */
+    .hero-slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.12) rotate(1.5deg);
+      filter: blur(8px) brightness(0.9);
+      transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  filter 1.1s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-slide-img.active {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px) brightness(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .hero-slide-img.prev-morph {
+      opacity: 0;
+      transform: scale(0.92) rotate(-1.5deg);
+      filter: blur(8px) brightness(0.8);
+      z-index: 1;
+    }
+
+    /* Floating culinary badge */
+    .slider-tag-badge {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(14, 8, 7, 0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 9px 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 3;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .slider-tag-badge i {
+      color: var(--accent-orange);
+      font-size: 15px;
+    }
+
+    /* Navigation Pills */
+    .slider-nav-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      z-index: 3;
+      flex-wrap: wrap;
+    }
+
+    .slider-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 9px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      backdrop-filter: blur(8px);
+    }
+
+    .slider-pill:hover {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .slider-pill.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-color: #f59e0b;
+      color: #000;
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Text morph transitions */
+    .text-morph {
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: opacity, transform;
+    }
+
+    .text-morph.changing {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    /* =======================================================
+       2. MODAL STYLES (UNDER DEVELOPMENT & LOGIN SERVICES)
+       ======================================================= */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 4, 3, 0.82);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #170e0b;
+      border: 1.5px solid rgba(245, 158, 11, 0.3);
+      border-radius: 24px;
+      padding: 36px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      position: relative;
+      text-align: center;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #94a3b8;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .modal-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent-orange);
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .modal-icon.icon-dev {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #60a5fa;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Form Login */
+    .login-form {
+      text-align: left;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 18px;
+    }
+
+    .login-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .login-input-wrapper {
+      position: relative;
+    }
+
+    .login-input-wrapper i.prefix-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 13px 14px 13px 42px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+    }
+
+    .toggle-pwd {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .toggle-pwd:hover {
+      color: #fff;
+    }
+
+    .login-alert {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .demo-hint {
+      margin-top: 18px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .demo-hint b {
+      color: var(--accent-orange);
+    }
+
+    /* =======================================================
+       3. APLIKASI KEUANGAN & POS (PROTECTED AREA)
+       ======================================================= */
+    #app-keuangan {
+      display: none;
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+      padding-bottom: 50px;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .pos-navbar {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 24px;
+    }
+
+    .pos-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .pos-brand-icon {
+      background: var(--primary);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+    }
+
+    .pos-brand span {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-admin {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #34d399;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Highlight Banner Total Modal & Rekap Keuangan */
+    .rekap-keuangan-box {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+    }
+
+    .rekap-keuangan-title {
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #f8fafc;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .grid-rekap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .rekap-item {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .rekap-item.highlight-yellow {
+      background: #fef08a;
+      color: #854d0e;
+      border: 2px solid #facc15;
+    }
+
+    .rekap-item.highlight-yellow label {
+      color: #a16207 !important;
+    }
+
+    .rekap-item.highlight-purple {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: 2px solid #818cf8;
+    }
+
+    .rekap-item.highlight-purple label {
+      color: #4338ca !important;
+    }
+
+    .rekap-item.highlight-orange {
+      background: #ffedd5;
+      color: #9a3412;
+      border: 2px solid #f97316;
+    }
+
+    .rekap-item.highlight-orange label {
+      color: #c2410c !important;
+    }
+
+    .rekap-item label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+
+    .rekap-item .value {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    /* Summary POS Stats Cards */
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .stat-card h4 {
+      margin: 0 0 8px 0;
+      color: #64748b;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .stat-card .val {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .text-green {
+      color: #10b981 !important;
+    }
+
+    .text-blue {
+      color: #2563eb !important;
+    }
+
+    .text-purple {
+      color: #8b5cf6 !important;
+    }
+
+    .text-red {
+      color: #ef4444 !important;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 20px;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+
+    .tab-btn:hover {
+      background: #cbd5e1;
+    }
+
+    .tab-btn.active {
+      background: #1e293b;
+      color: white;
+      box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title i {
+      color: var(--primary);
+    }
+
+    .pos-form-group {
+      margin-bottom: 16px;
+    }
+
+    .pos-form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .pos-input,
+    .pos-select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #0f172a;
+      background-color: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    .pos-input:focus,
+    .pos-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.15);
+    }
+
+    .pos-form-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .btn-pos-primary {
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      width: 100%;
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-pos-primary:hover {
+      background: var(--accent-green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-excel {
+      background: #166534;
+      color: white;
+      width: auto;
+      padding: 8px 16px;
+      font-size: 13px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-excel:hover {
+      background: #14532d;
+    }
+
+    .btn-delete {
+      background: #fee2e2;
+      color: var(--danger);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-delete:hover {
+      background: var(--danger);
+      color: white;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 12px 14px;
+      border-bottom: 2px solid #e2e8f0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 12px 14px;
+      font-size: 13px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #0f172a;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 10px;
+      }
+
+      .hero-title-row {
+        justify-content: center;
+      }
+
+      .badge-premium-circle {
+        position: static;
+        margin: 0 auto 20px;
+      }
+
+      .hero-special-desc {
+        margin: 0 auto;
+      }
+
+      .hero-btn-group {
+        justify-content: center;
+      }
+
+      .landing-nav {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .hero-title-solid,
+      .hero-title-outline {
+        font-size: 58px;
+      }
+
+      .landing-nav {
+        padding: 16px 20px;
+      }
+
+      .pos-form-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-slider-frame {
+        height: 280px;
+        border-radius: 20px;
+      }
+
+      .slider-pill {
+        font-size: 11px;
+        padding: 7px 12px;
+      }
+
+      .slider-tag-badge {
+        font-size: 11px;
+        padding: 6px 12px;
+        bottom: 12px;
+        left: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================== -->
+  <!-- BAGIAN 1: LANDING PAGE GOURMET (SESUAI GAMBAR REFERENSI) -->
+  <!-- ========================================================== -->
+  <div id="page-landing">
+
+    <!-- Header & Navbar -->
+    <header class="landing-nav">
+      <!-- Logo Bundar -->
+      <div class="brand-circle" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <div class="logo-img-wrapper">
+          <img src="images/logo-cahya-gallery.png" alt="Cahya Gallery" class="logo-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="logo-badge" style="display: none;">
+            <i class="fa-solid fa-burger"></i>
+            <span>BURGER</span>
+            <span>PLACE</span>
+          </div>
+        </div>
+        <div class="brand-name-text">
+          CAHYA GALLERY
+          <span>TASTY & FRESH F&B</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-links">
+        <li><a onclick="openDevModal('Menu Pilihan')">MENU</a></li>
+        <li><a class="service-link" onclick="openLoginModal()"><i class="fa-solid fa-lock"></i> SERVICES</a></li>
+        <li><a onclick="openDevModal('About Us')">ABOUT US</a></li>
+        <li><a href="https://wa.me/6282302425823?text=Halo%20Cahya%20Gallery" target="_blank">CONTACT</a></li>
+      </ul>
+
+      <!-- Social Icons -->
+      <div class="nav-socials">
+        <a href="https://instagram.com" target="_blank" class="social-btn" title="Instagram"><i
+            class="fa-brands fa-instagram"></i></a>
+        <a href="https://facebook.com" target="_blank" class="social-btn" title="Facebook"><i
+            class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://twitter.com" target="_blank" class="social-btn" title="Twitter"><i
+            class="fa-brands fa-twitter"></i></a>
+        <a href="https://wa.me/6282302425823" target="_blank" class="social-btn" title="WhatsApp"><i
+            class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </header>
+
+    <!-- Hero Body -->
+    <main class="hero-container">
+
+      <!-- Left Column: Typography & Info -->
+      <div class="hero-content">
+
+        <!-- 100% Premium Circular Sticker -->
+        <div class="badge-premium-circle">
+          <span class="b-pct">100%</span>
+          <span class="b-txt">PREMIUM</span>
+        </div>
+
+        <!-- Title Block -->
+        <div class="hero-title-group">
+          <span class="hero-title-solid">THE BEST</span>
+          <div class="hero-title-row">
+            <span class="hero-title-outline text-morph" id="heroMenuOutline">BURGER</span>
+            <div class="sketch-burger-box">
+              <img src="images/sketch-burger.png" alt="Sketch Burger" class="sketch-burger-img"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" style="display:none; width:65px; height:65px; opacity:0.85;">
+                <path d="M12 28 C12 16, 52 16, 52 28 Z" />
+                <line x1="8" y1="36" x2="56" y2="36" />
+                <path d="M14 42 C14 54, 50 54, 50 42 Z" />
+                <line x1="10" y1="28" x2="54" y2="28" />
+                <line x1="16" y1="42" x2="48" y2="42" />
+                <circle cx="24" cy="22" r="1.5" fill="#fff" />
+                <circle cx="34" cy="20" r="1.5" fill="#fff" />
+                <circle cx="42" cy="23" r="1.5" fill="#fff" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="hero-divider"></div>
+
+        <!-- Special Ingredients Info -->
+        <div class="hero-special-block">
+          <h2 class="hero-special-title text-morph" id="heroSpecialTitle">SPECIAL INGREDIENTS</h2>
+          <p class="hero-special-desc text-morph" id="heroSpecialDesc">
+            Kelezatan burger dan aneka kuliner premium Cahya Gallery dibuat dari komposisi bahan segar berkualitas
+            tinggi, daging pilihan beraroma gurih, dan racikan bumbu istimewa yang terstandarisasi.
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="hero-btn-group">
+          <button class="btn-read-more" onclick="openDevModal('Special Ingredients & Cerita Kami')">READ MORE</button>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Visual Showcase Slider -->
+      <div class="hero-visual">
+        <div class="burger-glow-circle"></div>
+        <div class="hero-slider-frame" id="heroSliderFrame" onmouseenter="pauseHeroSlider()" onmouseleave="resumeHeroSlider()">
+          <img src="images/cahya-burger.png" alt="Cahya Burger" class="hero-slide-img active" id="slide-0">
+          <img src="images/cahya-kebab.png" alt="Cahya Kebab" class="hero-slide-img" id="slide-1">
+          <img src="images/cahya-pizza.png" alt="Cahya Pizza" class="hero-slide-img" id="slide-2">
+          <img src="images/cahya-royam.png" alt="Cahya Royam" class="hero-slide-img" id="slide-3">
+          
+          <div class="slider-tag-badge" id="sliderBadge">
+            <i class="fa-solid fa-burger" id="sliderBadgeIcon"></i>
+            <span id="sliderBadgeText">BURGER MEDIUM DAGING SAPI</span>
+          </div>
+        </div>
+
+        <!-- Slider Navigation Pills -->
+        <div class="slider-nav-pills">
+          <button class="slider-pill active" onclick="switchHeroSlide(0)" id="pill-0">
+            <i class="fa-solid fa-burger"></i> BURGER
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(1)" id="pill-1">
+            <i class="fa-solid fa-bacon"></i> KEBAB
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(2)" id="pill-2">
+            <i class="fa-solid fa-pizza-slice"></i> PIZZA
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(3)" id="pill-3">
+            <i class="fa-solid fa-cookie-bite"></i> ROYAM
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- MODAL: FITUR TAHAP PENGEMBANGAN (MENU, ABOUT US, CONTACT)   -->
+  <!-- ========================================================== -->
+  <div id="modal-dev" class="modal-overlay" onclick="closeDevModal(event)">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="document.getElementById('modal-dev').classList.remove('active')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-icon icon-dev">
+        <i class="fa-solid fa-hammer"></i>
+      </div>
+      <h3 class="modal-title" id="devModalTitle">Tahap Pengembangan</h3>
+      <p class="modal-desc" id="devModalDesc">
+        Halaman ini sedang dalam tahap pengerjaan & desain. Untuk saat ini, Anda dapat mengakses menu <b>SERVICES</b>
+        untuk membuka sistem operasional Kasir & Rekapitulasi Keuangan.
+      </p>
+      <button class="btn-read-more" style="width: 100%;"
+        onclick="document.getElementById('modal-dev').classList.remove('active'); openLoginModal();">
+        <i class="fa-solid fa-arrow-right"></i> Buka Menu Services (Keuangan)
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- MODAL: LOGIN SERVICES (PORTAL KEUANGAN & POS)              -->
+  <!-- ========================================================== -->
+  <div id="modal-login" class="modal-overlay" onclick="closeLoginModal(event)">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="document.getElementById('modal-login').classList.remove('active')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-icon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <h3 class="modal-title">Portal Services</h3>
+      <p class="modal-desc">Login khusus staf & manajemen untuk mengakses Buku Kas, Stok Dapur, dan POS Kasir.</p>
+
+      <div id="loginAlert" class="login-alert">
+        <i class="fa-solid fa-triangle-exclamation"></i> <span id="loginAlertMsg">Username atau password salah!</span>
+      </div>
+
+      <form class="login-form" id="formLoginServices" onsubmit="handleLoginSubmit(event)">
+        <div class="form-group">
+          <label>Username</label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-user prefix-icon"></i>
+            <input type="text" id="loginUser" class="login-input" placeholder="Masukkan Username" required
+              autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-lock prefix-icon"></i>
+            <input type="password" id="loginPass" class="login-input" placeholder="Masukkan Password"
+              required autocomplete="off">
+            <i class="fa-solid fa-eye toggle-pwd" id="togglePassBtn" onclick="togglePasswordVisibility()"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-read-more" style="width: 100%; border-radius: 12px; margin-top: 10px;">
+          <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Sistem Keuangan
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- BAGIAN 2: SISTEM KEUANGAN & KASIR POS (SETELAH LOGIN)      -->
+  <!-- ========================================================== -->
+  <div id="app-keuangan">
+
+    <!-- POS Navbar -->
+    <nav class="pos-navbar">
+      <div class="pos-brand">
+        <div class="pos-brand-icon"><i class="fa-solid fa-burger"></i></div>
+        <div>CAHYA GALLERY <span>F&B</span></div>
+      </div>
+      <div class="nav-actions">
+        <div class="badge-admin"><i class="fa-solid fa-circle-check"></i> Admin Aktif (2026)</div>
+        <button class="btn-logout" onclick="logoutKeuangan()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar ke Beranda
+        </button>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <!-- DASHBOARD REKAP KEUANGAN & TOTAL MODAL -->
+      <div class="rekap-keuangan-box">
+        <div class="rekap-keuangan-title">
+          <span><i class="fa-solid fa-chart-pie"></i> DASHBOARD REKAP KEUANGAN & TOTAL MODAL</span>
+          <small style="font-weight: 500; font-size: 12px; color: #cbd5e1;"><i class="fa-solid fa-sync fa-spin"></i>
+            Auto-Update Realtime</small>
+        </div>
+        <div class="grid-rekap">
+          <div class="rekap-item">
+            <label>NILAI ASET (Peralatan)</label>
+            <div class="value" id="rkNilaiAset">Rp 11.212.000</div>
+            <small style="font-size: 10px; color: #94a3b8;">Sheet: ASET & PIUTANG</small>
+          </div>
+          <div class="rekap-item">
+            <label>STOK AKHIR (Bahan Dapur)</label>
+            <div class="value" id="rkStokAkhir">Rp 1.633.609</div>
+            <small style="font-size: 10px; color: #94a3b8;">Sheet: REKAP BAHAN</small>
+          </div>
+          <div class="rekap-item">
+            <label>KAS PERPUTARAN MODAL</label>
+            <div class="value" id="rkKasModal">Rp 266.391</div>
+            <small style="font-size: 10px; color: #94a3b8;">Sheet: KAS PERPUTARAN MODAL</small>
+          </div>
+          <div class="rekap-item highlight-yellow">
+            <label>TOTAL KESELURUHAN MODAL</label>
+            <div class="value" id="rkTotalModalKeseluruhan">Rp 1.900.000</div>
+            <small style="font-size: 10px; font-weight:700;">(Stok Akhir + Kas Modal)</small>
+          </div>
+          <div class="rekap-item">
+            <label>SALDO KAS TOKO</label>
+            <div class="value" id="rkKasToko">Rp 124.900</div>
+            <small style="font-size: 10px; color: #94a3b8;">Sheet: KAS TOKO</small>
+          </div>
+          <div class="rekap-item">
+            <label>SISA AKHIR KOMISI MITRA</label>
+            <div class="value" id="rkSisaKomisi">Rp 36.345</div>
+            <small style="font-size: 10px; color: #94a3b8;">Sheet: REKAP KOMISI</small>
+          </div>
+          <div class="rekap-item highlight-purple">
+            <label>TOTAL KEKAYAAN ASET</label>
+            <div class="value" id="rkTotalKekayaan">Rp 13.236.900</div>
+            <small style="font-size: 10px; font-weight:700;">(Aset + Stok + Kas Modal + Kas Toko)</small>
+          </div>
+          <div class="rekap-item highlight-orange">
+            <label>UANG HARUS ADA DI LACI GERAI</label>
+            <div class="value" id="rkUangLaci">Rp 427.636</div>
+            <small style="font-size: 10px; font-weight:700;">(Kas Modal + Kas Toko + Sisa Komisi)</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- POS HARI INI STATS -->
+      <div class="grid-stats">
+        <div class="stat-card">
+          <h4>Omzet Penjualan Baru Hari Ini</h4>
+          <div class="val text-green" id="statOmzet">Rp 0</div>
+        </div>
+        <div class="stat-card">
+          <h4>Menu Terjual Hari Ini</h4>
+          <div class="val" id="statJual">0 Porsi</div>
+        </div>
+        <div class="stat-card">
+          <h4>HPP / Modal Terjual Hari Ini</h4>
+          <div class="val text-blue" id="statModalTerjual">Rp 0</div>
+        </div>
+        <div class="stat-card">
+          <h4>Komisi Mitra Hari Ini</h4>
+          <div class="val text-purple" id="statKomisiHariIni">Rp 0</div>
+        </div>
+        <div class="stat-card">
+          <h4>Laba Toko Hari Ini</h4>
+          <div class="val text-green" id="statLabaHariIni">Rp 0</div>
+        </div>
+      </div>
+
+      <!-- TABS NAVIGASI POS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-pos')"><i class="fa-solid fa-cash-register"></i> Kasir &
+          Penjualan</button>
+        <button class="tab-btn" onclick="switchTab('tab-stok')"><i class="fa-solid fa-boxes-stacked"></i> Stok Dapur &
+          Resep</button>
+        <button class="tab-btn" onclick="switchTab('tab-kas')"><i class="fa-solid fa-wallet"></i> Buku Kas & Perputaran
+          Modal</button>
+        <button class="tab-btn" onclick="switchTab('tab-komisi')"><i class="fa-solid fa-users-gear"></i> Rekap Komisi
+          Mitra Detail</button>
+      </div>
+
+      <!-- TAB 1: KASIR (POS) -->
+      <div id="tab-pos" class="tab-content active">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-cart-shopping"></i> Proses Transaksi Kasir</div>
+          </div>
+          <form id="formPenjualan">
+            <div class="pos-form-row">
+              <div class="pos-form-group" style="flex: 1.5;">
+                <label>Nama Customer</label>
+                <input type="text" id="jualCust" class="pos-input" list="listCust" placeholder="Ketik/Pilih Customer"
+                  required autocomplete="off">
+                <datalist id="listCust"></datalist>
+              </div>
+              <div class="pos-form-group" style="flex: 1.5;">
+                <label>Mitra / Reseller</label>
+                <input type="text" id="jualMitra" class="pos-input" list="listMitra" placeholder="Ketik/Pilih Mitra"
+                  required autocomplete="off">
+                <datalist id="listMitra"></datalist>
+              </div>
+            </div>
+            <div class="pos-form-row">
+              <div class="pos-form-group" style="flex: 3;">
+                <label>Menu / Produk Terjual</label>
+                <select id="jualMenu" class="pos-select" required></select>
+              </div>
+              <div class="pos-form-group" style="flex: 1;">
+                <label>Qty (Porsi)</label>
+                <input type="number" id="jualQty" class="pos-input" value="1" min="1" required>
+              </div>
+              <div class="pos-form-group" style="flex: 1.5;">
+                <button type="submit" class="btn-pos-primary" style="height: 46px;">
+                  <i class="fa-solid fa-check"></i> Simpan Transaksi
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Penjualan Terbaru</div>
+            <button class="btn-excel" onclick="exportExcel('tabelRiwayatData', 'Penjualan_Hari_Ini')"><i
+                class="fa-solid fa-file-excel"></i> Export Excel</button>
+          </div>
+          <div class="table-responsive">
+            <table id="tabelRiwayatData">
+              <thead>
+                <tr>
+                  <th>Waktu</th>
+                  <th>Customer</th>
+                  <th>Mitra</th>
+                  <th>Menu</th>
+                  <th>Qty</th>
+                  <th>Total Rp</th>
+                  <th>Modal (HPP)</th>
+                  <th>Komisi Mitra</th>
+                  <th>Laba Toko</th>
+                  <th style="text-align:center;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabelRiwayat"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: STOK & RESEP -->
+      <div id="tab-stok" class="tab-content">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-box-open"></i> Sisa Stok Dapur</div>
+              <button class="btn-excel" onclick="exportExcel('tabelStokData', 'Sisa_Stok_Dapur')"><i
+                  class="fa-solid fa-file-excel"></i> Export</button>
+            </div>
+            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+              <table id="tabelStokData">
+                <thead style="position: sticky; top: 0; background: #f1f5f9;">
+                  <tr>
+                    <th>Bahan Baku</th>
+                    <th>Sisa Stok</th>
+                    <th>Satuan</th>
+                    <th>Estimasi Nilai</th>
+                  </tr>
+                </thead>
+                <tbody id="tabelStok"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-utensils"></i> Database Resep Menu</div>
+            </div>
+            <div class="pos-form-group">
+              <label>Lihat Resep Untuk Menu:</label>
+              <select id="pilihLihatResep" class="pos-select" onchange="lihatResep()"></select>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Komposisi Bahan Baku</th>
+                    <th>Kebutuhan per Porsi</th>
+                  </tr>
+                </thead>
+                <tbody id="tabelDetailResep"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: BUKU KAS & PERPUTARAN MODAL -->
+      <div id="tab-kas" class="tab-content">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-wallet"></i> Kas Toko (Laba Bersih Toko)</div>
+            </div>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 10px;">
+              Sisa Saldo Kas Toko dari Excel: <b>Rp 124.900</b>
+            </p>
+            <p style="color: var(--accent-green-dark); font-size: 20px; font-weight: 800;" id="detailKasToko">
+              Saldo Terkini: Rp 124.900
+            </p>
+            <small style="color: #64748b; margin-top: 8px; display: block;">Menerima alokasi Laba Bersih Toko dari
+              setiap transaksi baru.</small>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fa-solid fa-arrows-spin"></i> Kas Perputaran Modal (HPP)</div>
+            </div>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 10px;">
+              Sisa Saldo Kas Perputaran Modal dari Excel: <b>Rp 266.391</b>
+            </p>
+            <p style="color: #2563eb; font-size: 20px; font-weight: 800;" id="detailKasModal">
+              Saldo Terkini: Rp 266.391
+            </p>
+            <small style="color: #64748b; margin-top: 8px; display: block;">Menerima pemindahan modal (HPP) dari bahan
+              baku produk yang terjual.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: REKAP KOMISI MITRA DETAIL -->
+      <div id="tab-komisi" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-users-gear"></i> Rekapitulasi Komisi Mitra / Reseller
+              Terperinci</div>
+            <button class="btn-excel" onclick="exportExcel('tabelKomisiData', 'Rekap_Komisi_Mitra')"><i
+                class="fa-solid fa-file-excel"></i> Export Excel</button>
+          </div>
+          <div class="table-responsive">
+            <table id="tabelKomisiData">
+              <thead>
+                <tr>
+                  <th>Nama Mitra</th>
+                  <th>Komisi Utama</th>
+                  <th>Komisi Lain-Lain</th>
+                  <th>Sisa Komisi Awal</th>
+                  <th>Total Komisi</th>
+                  <th>Penarikan (Tarik)</th>
+                  <th>Sisa Akhir Komisi (Siap Tarik)</th>
+                </tr>
+              </thead>
+              <tbody id="tabelKomisi"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- JAVASCRIPT: LOGIKA BISNIS, MODAL, LOGIN, & KALKULASI SYNC  -->
+  <!-- ========================================================== -->
+  <script>
+    // --- MASTER DATABASE TERVERIFIKASI & BERSIH ---
+    const DB_BAHAN = [
+      {
+        "nama": "SAOS TOMAT GRAM",
+        "stok": 2165.0,
+        "satuan": "gram",
+        "harga_satuan": 20.0
+      },
+      {
+        "nama": "SAOS SAMBAL GRAM",
+        "stok": 1660.0,
+        "satuan": "gram",
+        "harga_satuan": 18.0
+      },
+      {
+        "nama": "SAOS BBQ GRAM",
+        "stok": 302.0,
+        "satuan": "gram",
+        "harga_satuan": 48.0
+      },
+      {
+        "nama": "MAYONAIS GRAM",
+        "stok": 633.0,
+        "satuan": "gram",
+        "harga_satuan": 50.0
+      },
+      {
+        "nama": "SAOS SPAGHETI GRAM",
+        "stok": 1342.0,
+        "satuan": "gram",
+        "harga_satuan": 48.0
+      },
+      {
+        "nama": "SAOS TOMAT SACHET",
+        "stok": 18.0,
+        "satuan": "sachet",
+        "harga_satuan": 291.6666666666667
+      },
+      {
+        "nama": "SAOS SAMBAL SACHET",
+        "stok": 39.0,
+        "satuan": "sachet",
+        "harga_satuan": 333.3333333333333
+      },
+      {
+        "nama": "KEJU SLICE MEDIUM SACHET",
+        "stok": 12.0,
+        "satuan": "sachet",
+        "harga_satuan": 1333.3333333333333
+      },
+      {
+        "nama": "KEJU MOZZARELLA",
+        "stok": 204.0,
+        "satuan": "pcs",
+        "harga_satuan": 180.0
+      },
+      {
+        "nama": "NUGGET AYAM",
+        "stok": 0.0,
+        "satuan": "pcs",
+        "harga_satuan": 3666.6666666666665
+      },
+      {
+        "nama": "SOSIZ BATANG",
+        "stok": 58.0,
+        "satuan": "batang",
+        "harga_satuan": 921.0526315789474
+      },
+      {
+        "nama": "AYAM SUWIR",
+        "stok": 450.0,
+        "satuan": "gram",
+        "harga_satuan": 112.5
+      },
+      {
+        "nama": "KULIT KEBAB 17/18 CM",
+        "stok": 26.0,
+        "satuan": "lembar",
+        "harga_satuan": 1350.0
+      },
+      {
+        "nama": "KULIT KEBAB 19/20 CM",
+        "stok": 29.0,
+        "satuan": "lembar",
+        "harga_satuan": 1450.0
+      },
+      {
+        "nama": "ROTI BURGER MEDIUM",
+        "stok": 1.0,
+        "satuan": "pcs",
+        "harga_satuan": 2500.0
+      },
+      {
+        "nama": "ROTI ROCAS MEDIUM",
+        "stok": 2.0,
+        "satuan": "pcs",
+        "harga_satuan": 2500.0
+      },
+      {
+        "nama": "ROTI MARYAM",
+        "stok": 10.0,
+        "satuan": "pcs",
+        "harga_satuan": 2000.0
+      },
+      {
+        "nama": "GULA NYES",
+        "stok": 413.0,
+        "satuan": "gram",
+        "harga_satuan": 20.0
+      },
+      {
+        "nama": "MISIS COKLAT",
+        "stok": 637.0,
+        "satuan": "pcs",
+        "harga_satuan": 60.0
+      },
+      {
+        "nama": "TIMUN IRIS",
+        "stok": 0.0,
+        "satuan": "pcs",
+        "harga_satuan": 33.333333333333336
+      },
+      {
+        "nama": "TOMAT IRIS",
+        "stok": 0.0,
+        "satuan": "pcs",
+        "harga_satuan": 44.44444444444444
+      },
+      {
+        "nama": "SLADA",
+        "stok": 34.0,
+        "satuan": "pcs",
+        "harga_satuan": 1200.0
+      },
+      {
+        "nama": "MENTEGA",
+        "stok": 1826.5,
+        "satuan": "gram",
+        "harga_satuan": 35.0
+      },
+      {
+        "nama": "GULA PASIR",
+        "stok": 1716.5,
+        "satuan": "gram",
+        "harga_satuan": 18.0
+      },
+      {
+        "nama": "GARAM HALUS",
+        "stok": 302.5,
+        "satuan": "pcs",
+        "harga_satuan": 16.0
+      },
+      {
+        "nama": "VERMIPAN",
+        "stok": 10.0,
+        "satuan": "pcs",
+        "harga_satuan": 636.3636363636364
+      },
+      {
+        "nama": "SUSU BUBUK",
+        "stok": 255.0,
+        "satuan": "pcs",
+        "harga_satuan": 72.0
+      },
+      {
+        "nama": "TEPUNG SEGITIGA BIRU",
+        "stok": 1282.0,
+        "satuan": "pcs",
+        "harga_satuan": 14.0
+      },
+      {
+        "nama": "TEPUNG CAKRA KEMBAR",
+        "stok": 1370.0,
+        "satuan": "pcs",
+        "harga_satuan": 14.0
+      },
+      {
+        "nama": "BASIL",
+        "stok": 23.400000000000006,
+        "satuan": "pcs",
+        "harga_satuan": 1000.0
+      },
+      {
+        "nama": "KALDU JAMUR",
+        "stok": 10.5,
+        "satuan": "pcs",
+        "harga_satuan": 187.5
+      },
+      {
+        "nama": "BAWANG BOMBAY",
+        "stok": 17.0,
+        "satuan": "pcs",
+        "harga_satuan": 625.0
+      },
+      {
+        "nama": "ABON",
+        "stok": 57.0,
+        "satuan": "pcs",
+        "harga_satuan": 250.0
+      },
+      {
+        "nama": "JAMUR",
+        "stok": 4.0,
+        "satuan": "pcs",
+        "harga_satuan": 200.0
+      },
+      {
+        "nama": "JAGUNG",
+        "stok": 0.5,
+        "satuan": "pcs",
+        "harga_satuan": 1500.0
+      },
+      {
+        "nama": "SAOS KEJU",
+        "stok": 442.0,
+        "satuan": "pcs",
+        "harga_satuan": 64.0
+      },
+      {
+        "nama": "UDANG",
+        "stok": 4.0,
+        "satuan": "pcs",
+        "harga_satuan": 900.0
+      },
+      {
+        "nama": "PAPRIKA GRAM",
+        "stok": 109.20000000000005,
+        "satuan": "gram",
+        "harga_satuan": 100.0
+      },
+      {
+        "nama": "KENTANG",
+        "stok": 1.5,
+        "satuan": "pcs",
+        "harga_satuan": 1200.0
+      },
+      {
+        "nama": "GAS ELPIJI",
+        "stok": 1920.0,
+        "satuan": "pcs",
+        "harga_satuan": 7.666666666666667
+      },
+      {
+        "nama": "AIR PANAS (CC/GRAM)",
+        "stok": 27010.0,
+        "satuan": "gram",
+        "harga_satuan": 0.8947368421052632
+      },
+      {
+        "nama": "AIR BIASA (CC/GRAM)",
+        "stok": 19000.0,
+        "satuan": "gram",
+        "harga_satuan": 0.8947368421052632
+      },
+      {
+        "nama": "AIR DINGIN (CC/GRAM)",
+        "stok": 13119.0,
+        "satuan": "gram",
+        "harga_satuan": 0.8947368421052632
+      },
+      {
+        "nama": "KERTAS ROTI OVEN",
+        "stok": 131.0,
+        "satuan": "pcs",
+        "harga_satuan": 200.0
+      },
+      {
+        "nama": "KERTAS BUNGKUS ROCAS",
+        "stok": 0.0,
+        "satuan": "pcs",
+        "harga_satuan": 57.0
+      },
+      {
+        "nama": "KERTAS NASI/BURGER",
+        "stok": 300.0,
+        "satuan": "pcs",
+        "harga_satuan": 114.0
+      },
+      {
+        "nama": "KERTAS KEBAB",
+        "stok": 266.0,
+        "satuan": "pcs",
+        "harga_satuan": 250.0
+      },
+      {
+        "nama": "KOTAK BURGER",
+        "stok": 84.0,
+        "satuan": "pcs",
+        "harga_satuan": 820.0
+      },
+      {
+        "nama": "MIKA ROCAS MEDIUM",
+        "stok": 0.0,
+        "satuan": "pcs",
+        "harga_satuan": 400.0
+      },
+      {
+        "nama": "KOTAK 18 CM",
+        "stok": 9.0,
+        "satuan": "pcs",
+        "harga_satuan": 2000.0
+      },
+      {
+        "nama": "KOTAK 21 CM",
+        "stok": 26.0,
+        "satuan": "pcs",
+        "harga_satuan": 2500.0
+      },
+      {
+        "nama": "KOTAK 26 CM",
+        "stok": 24.0,
+        "satuan": "pcs",
+        "harga_satuan": 3000.0
+      },
+      {
+        "nama": "TALI RAFIA",
+        "stok": 389.0,
+        "satuan": "pcs",
+        "harga_satuan": 125.0
+      },
+      {
+        "nama": "KRESEK 10 CM",
+        "stok": 142.0,
+        "satuan": "pcs",
+        "harga_satuan": 55.0
+      },
+      {
+        "nama": "KRESEK 15 CM",
+        "stok": 419.0,
+        "satuan": "pcs",
+        "harga_satuan": 140.0
+      },
+      {
+        "nama": "KRESEK 20 CM",
+        "stok": 77.0,
+        "satuan": "pcs",
+        "harga_satuan": 170.0
+      },
+      {
+        "nama": "KRESEK 23 CM",
+        "stok": 180.0,
+        "satuan": "pcs",
+        "harga_satuan": 160.0
+      },
+      {
+        "nama": "KRESEK 30 CM",
+        "stok": 90.0,
+        "satuan": "pcs",
+        "harga_satuan": 500.0
+      },
+      {
+        "nama": "KRESEK 50 CM",
+        "stok": 84.0,
+        "satuan": "pcs",
+        "harga_satuan": 1000.0
+      },
+      {
+        "nama": "PLASTIK KLIP KECIL 10 CM",
+        "stok": 119.0,
+        "satuan": "pcs",
+        "harga_satuan": 50.0
+      },
+      {
+        "nama": "PLASTIK KLIP SEDANG 13 CM",
+        "stok": 187.0,
+        "satuan": "pcs",
+        "harga_satuan": 60.0
+      },
+      {
+        "nama": "PLASTIK KLIP BESAR 15 CM",
+        "stok": 66.0,
+        "satuan": "pcs",
+        "harga_satuan": 80.0
+      },
+      {
+        "nama": "PLASTIK KLIP 20 CM",
+        "stok": 100.0,
+        "satuan": "pcs",
+        "harga_satuan": 120.0
+      },
+      {
+        "nama": "PLASTIK KLIP 8 CM",
+        "stok": 49.0,
+        "satuan": "pcs",
+        "harga_satuan": 35.0
+      },
+      {
+        "nama": "MINYAK",
+        "stok": 44.0,
+        "satuan": "pcs",
+        "harga_satuan": 17.0
+      },
+      {
+        "nama": "DAGING SAPI",
+        "stok": 920.0,
+        "satuan": "gram",
+        "harga_satuan": 85.0
+      },
+      {
+        "nama": "PERASA JAGUNG MANIS",
+        "stok": 100.0,
+        "satuan": "pcs",
+        "harga_satuan": 55.0
+      }
+    ];
+
+    const DB_KATALOG = [
+      {
+        "nama": "BURGER MEDIUM DAGING SAPI",
+        "harga": 15000.0,
+        "modal": 11837.88888888889,
+        "komisi": 1183.788888888889,
+        "laba": 1978.3222222222212
+      },
+      {
+        "nama": "BURGER MEDIUM DAGING SAPI DOUBLE BEEF",
+        "harga": 20000.0,
+        "modal": 15662.88888888889,
+        "komisi": 1566.2888888888892,
+        "laba": 2770.822222222221
+      },
+      {
+        "nama": "BURGER MEDIUM DAGING SAPI TANPA SAYUR",
+        "harga": 15000.0,
+        "modal": 11049.000000000002,
+        "komisi": 1104.9000000000003,
+        "laba": 2846.0999999999985
+      },
+      {
+        "nama": "BURGER MEDIUM NUGGET AYAM",
+        "harga": 15000.0,
+        "modal": 11679.555555555557,
+        "komisi": 1167.9555555555557,
+        "laba": 2152.4888888888872
+      },
+      {
+        "nama": "BURGER MEDIUM NUGGET AYAM TANPA SAYUR",
+        "harga": 15000.0,
+        "modal": 12224.0,
+        "komisi": 1222.4,
+        "laba": 1553.6000000000004
+      },
+      {
+        "nama": "KEBAB AYAM (KECIL)",
+        "harga": 9000.0,
+        "modal": 6711.666666666667,
+        "komisi": 671.1666666666667,
+        "laba": 1617.166666666666
+      },
+      {
+        "nama": "KEBAB AYAM (KECIL) PEDAS",
+        "harga": 9000.0,
+        "modal": 7057.666666666667,
+        "komisi": 705.7666666666668,
+        "laba": 1236.5666666666666
+      },
+      {
+        "nama": "KEBAB AYAM (KECIL) TANPA SAYUR",
+        "harga": 9000.0,
+        "modal": 6074.166666666667,
+        "komisi": 607.4166666666667,
+        "laba": 2318.416666666666
+      },
+      {
+        "nama": "KEBAB AYAM (KECIL) TANPA SAYUR PEDAS",
+        "harga": 9000.0,
+        "modal": 6420.166666666667,
+        "komisi": 642.0166666666668,
+        "laba": 1937.8166666666666
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (KECIL)",
+        "harga": 9000.0,
+        "modal": 6122.19298245614,
+        "komisi": 612.219298245614,
+        "laba": 2265.587719298246
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (KECIL) PEDAS",
+        "harga": 9000.0,
+        "modal": 6192.19298245614,
+        "komisi": 619.219298245614,
+        "laba": 2188.587719298246
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (KECIL) TANPA SAYUR EKSTRA AYAM",
+        "harga": 9000.0,
+        "modal": 5972.19298245614,
+        "komisi": 597.219298245614,
+        "laba": 2430.587719298246
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (KECIL) TANPA SAYUR EKSTRA SOSIZ",
+        "harga": 9000.0,
+        "modal": 5870.2192982456145,
+        "komisi": 587.0219298245614,
+        "laba": 2542.7587719298244
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (MEDIUM)",
+        "harga": 12000.0,
+        "modal": 8274.719298245614,
+        "komisi": 827.4719298245615,
+        "laba": 2897.8087719298237
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (MEDIUM) PEDAS",
+        "harga": 12000.0,
+        "modal": 8174.7192982456145,
+        "komisi": 817.4719298245615,
+        "laba": 3007.8087719298237
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (MEDIUM) TANPA SAYUR EKSTRA AYAM",
+        "harga": 12000.0,
+        "modal": 8762.219298245613,
+        "komisi": 876.2219298245614,
+        "laba": 2361.5587719298255
+      },
+      {
+        "nama": "KEBAB AYAM + SOSIZ (MEIDUM) TANPA SAYUR EKSTRA SOSIZ",
+        "harga": 12000.0,
+        "modal": 8558.271929824561,
+        "komisi": 855.8271929824562,
+        "laba": 2585.900877192982
+      },
+      {
+        "nama": "KEBAB AYAM MEDIUM",
+        "harga": 12000.0,
+        "modal": 8478.666666666668,
+        "komisi": 847.8666666666668,
+        "laba": 2673.4666666666653
+      },
+      {
+        "nama": "KEBAB AYAM MEDIUM PEDAS",
+        "harga": 12000.0,
+        "modal": 8378.666666666668,
+        "komisi": 837.8666666666668,
+        "laba": 2783.4666666666653
+      },
+      {
+        "nama": "KEBAB AYAM MEDIUM TANPA SAYUR",
+        "harga": 12000.0,
+        "modal": 7841.166666666667,
+        "komisi": 784.1166666666668,
+        "laba": 3374.716666666667
+      },
+      {
+        "nama": "KEBAB AYAM MEDIUM TANPA SAYUR PEDAS",
+        "harga": 12000.0,
+        "modal": 7841.166666666667,
+        "komisi": 784.1166666666668,
+        "laba": 3374.716666666667
+      },
+      {
+        "nama": "KEBAB SOSIZ (KECIL)",
+        "harga": 9000.0,
+        "modal": 6730.438596491228,
+        "komisi": 673.0438596491229,
+        "laba": 1596.5175438596489
+      },
+      {
+        "nama": "KEBAB SOSIZ (KECIL) PEDAS",
+        "harga": 9000.0,
+        "modal": 6740.438596491228,
+        "komisi": 674.0438596491229,
+        "laba": 1585.5175438596489
+      },
+      {
+        "nama": "KEBAB SOSIZ (KECIL) PEDAS TANPA SAYUR EKSTRA SOSIZ",
+        "harga": 9000.0,
+        "modal": 6461.491228070175,
+        "komisi": 646.1491228070175,
+        "laba": 1892.3596491228082
+      },
+      {
+        "nama": "KEBAB SOSIZ (KECIL) TANPA SAYUR EKSTRA SOSIZ",
+        "harga": 9000.0,
+        "modal": 6451.491228070175,
+        "komisi": 645.1491228070175,
+        "laba": 1903.3596491228082
+      },
+      {
+        "nama": "PIZZA KULIT KEBAB",
+        "harga": 40000.0,
+        "modal": 28361.666666666664,
+        "komisi": 2836.1666666666665,
+        "laba": 8802.166666666668
+      },
+      {
+        "nama": "PIZZA SIP 25 CM AYAM + JAMUR",
+        "harga": 80000.0,
+        "modal": 67651.70972886763,
+        "komisi": 6765.170972886764,
+        "laba": 5583.119298245612
+      },
+      {
+        "nama": "PIZZA SIP 25 CM FULL SOSIZ + MOZZARELLA",
+        "harga": 80000.0,
+        "modal": 65820.37001594897,
+        "komisi": 6582.037001594897,
+        "laba": 7597.592982456132
+      },
+      {
+        "nama": "PIZZA SIP 25 CM JAGUNG + AYAM",
+        "harga": 80000.0,
+        "modal": 66026.70972886763,
+        "komisi": 6602.670972886764,
+        "laba": 7370.619298245612
+      },
+      {
+        "nama": "PIZZA SIP 25 CM KOREA SEKAT DASARAN AYAM+MOZZA",
+        "harga": 85000.0,
+        "modal": 75141.68580542265,
+        "komisi": 7514.168580542265,
+        "laba": 2344.145614035093
+      },
+      {
+        "nama": "PIZZA SIP 25 CM KOREA SEKAT DASARAN JAGUNG+MOZZA",
+        "harga": 85000.0,
+        "modal": 72891.68580542265,
+        "komisi": 7289.168580542265,
+        "laba": 4819.145614035093
+      },
+      {
+        "nama": "PIZZA SIP 25 CM KOREA TABUR",
+        "harga": 85000.0,
+        "modal": 74016.68580542265,
+        "komisi": 7401.668580542265,
+        "laba": 3581.645614035093
+      },
+      {
+        "nama": "PIZZA SIP 25 CM MEAT LOVERS",
+        "harga": 80000.0,
+        "modal": 65331.70972886762,
+        "komisi": 6533.170972886763,
+        "laba": 8135.119298245612
+      },
+      {
+        "nama": "PIZZA SIP 25 CM SOSIS + ABON",
+        "harga": 85000.0,
+        "modal": 72329.86762360447,
+        "komisi": 7232.986762360448,
+        "laba": 5437.145614035078
+      },
+      {
+        "nama": "PIZZA SIP 25 CM SOSIS + AYAM",
+        "harga": 80000.0,
+        "modal": 66678.02551834131,
+        "komisi": 6667.802551834131,
+        "laba": 6654.171929824559
+      },
+      {
+        "nama": "PIZZA YES 17 CM AYAM + JAMUR",
+        "harga": 40000.0,
+        "modal": 31034.297448165868,
+        "komisi": 3103.429744816587,
+        "laba": 5862.2728070175435
+      },
+      {
+        "nama": "PIZZA YES 17 CM FULL SOSIZ + MOZZARELLA",
+        "harga": 40000.0,
+        "modal": 31731.54625199362,
+        "komisi": 3173.1546251993623,
+        "laba": 5095.299122807017
+      },
+      {
+        "nama": "PIZZA YES 17 CM JAGUNG + AYAM",
+        "harga": 40000.0,
+        "modal": 29661.797448165868,
+        "komisi": 2966.179744816587,
+        "laba": 7372.0228070175435
+      },
+      {
+        "nama": "PIZZA YES 17 CM KOREA SEKAT DASARAN AYAM+MOZZA",
+        "harga": 45000.0,
+        "modal": 35468.38835725678,
+        "komisi": 3546.838835725678,
+        "laba": 5984.7728070175435
+      },
+      {
+        "nama": "PIZZA YES 17 CM KOREA SEKAT DASARAN JAGUNG+MOZZA",
+        "harga": 45000.0,
+        "modal": 34905.88835725678,
+        "komisi": 3490.588835725678,
+        "laba": 6603.5228070175435
+      },
+      {
+        "nama": "PIZZA YES 17 CM KOREA TABUR",
+        "harga": 45000.0,
+        "modal": 34905.88835725678,
+        "komisi": 3490.588835725678,
+        "laba": 6603.5228070175435
+      },
+      {
+        "nama": "PIZZA YES 17 CM MEAT + AYAM",
+        "harga": 40000.0,
+        "modal": 33609.83572567783,
+        "komisi": 3360.9835725677835,
+        "laba": 3029.1807017543833
+      },
+      {
+        "nama": "PIZZA YES 17 CM MEAT LOVERS",
+        "harga": 40000.0,
+        "modal": 29668.24481658692,
+        "komisi": 2966.824481658692,
+        "laba": 7364.930701754387
+      },
+      {
+        "nama": "PIZZA YES 17 CM SOSIS + ABON",
+        "harga": 40000.0,
+        "modal": 32707.850079744814,
+        "komisi": 3270.7850079744817,
+        "laba": 4021.3649122807037
+      },
+      {
+        "nama": "PIZZA YES 17 CM SOSIS + AYAM",
+        "harga": 40000.0,
+        "modal": 33622.99362041467,
+        "komisi": 3362.2993620414672,
+        "laba": 3014.7070175438566
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM AYAM + JAMUR",
+        "harga": 60000.0,
+        "modal": 46396.63955342903,
+        "komisi": 4639.663955342903,
+        "laba": 8963.696491228067
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM FULL SOSIZ + MOZZARELLA",
+        "harga": 60000.0,
+        "modal": 44576.90271132377,
+        "komisi": 4457.690271132377,
+        "laba": 10965.407017543854
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM JAGUNG + AYAM",
+        "harga": 60000.0,
+        "modal": 45971.63955342903,
+        "komisi": 4597.163955342903,
+        "laba": 9431.196491228067
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM KOREA SEKAT DASARAN AYAM+MOZZA",
+        "harga": 65000.0,
+        "modal": 54690.562998405105,
+        "komisi": 5469.056299840511,
+        "laba": 4840.380701754388
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM KOREA SEKAT DASARAN JAGUNG+MOZZA",
+        "harga": 65000.0,
+        "modal": 52440.562998405105,
+        "komisi": 5244.056299840511,
+        "laba": 7315.380701754388
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM KOREA TABUR",
+        "harga": 65000.0,
+        "modal": 54165.562998405105,
+        "komisi": 5416.556299840511,
+        "laba": 5417.880701754388
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM MEAT + AYAM",
+        "harga": 60000.0,
+        "modal": 47746.63955342903,
+        "komisi": 4774.663955342903,
+        "laba": 7478.696491228067
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM SOSIS + ABON",
+        "harga": 60000.0,
+        "modal": 51609.797448165875,
+        "komisi": 5160.979744816588,
+        "laba": 3229.2228070175333
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM MEAT LOVERS",
+        "harga": 60000.0,
+        "modal": 47571.63955342903,
+        "komisi": 4757.163955342903,
+        "laba": 7671.196491228067
+      },
+      {
+        "nama": "PIZZA YUHU 21 CM SOSIS + AYAM",
+        "harga": 60000.0,
+        "modal": 47030.850079744814,
+        "komisi": 4703.085007974481,
+        "laba": 8266.064912280708
+      },
+      {
+        "nama": "ROCAS MEDIUM",
+        "harga": 9000.0,
+        "modal": 6787.719298245614,
+        "komisi": 678.7719298245614,
+        "laba": 1533.5087719298253
+      },
+      {
+        "nama": "ROCAS MEDIUM SAPI",
+        "harga": 9000.0,
+        "modal": 7116.666666666666,
+        "komisi": 711.6666666666666,
+        "laba": 1171.666666666667
+      },
+      {
+        "nama": "ROTI MARYAM COKLAT PAKET DOBEL KENYANG",
+        "harga": 16000.0,
+        "modal": 14180.0,
+        "komisi": 1418.0,
+        "laba": 402.0
+      },
+      {
+        "nama": "ROTI MARYAM COKLAT PAKET KENYANG",
+        "harga": 8500.0,
+        "modal": 7490.0,
+        "komisi": 749.0,
+        "laba": 261.0
+      },
+      {
+        "nama": "ROTI MARYAM COKLAT SINGLE",
+        "harga": 4000.0,
+        "modal": 2880.0,
+        "komisi": 288.0,
+        "laba": 832.0
+      },
+      {
+        "nama": "ROTI MARYAM ORI PAKET DOBEL KENYANG",
+        "harga": 15000.0,
+        "modal": 12000.0,
+        "komisi": 1200.0,
+        "laba": 1800.0
+      },
+      {
+        "nama": "ROTI MARYAM ORI PAKET KENYANG",
+        "harga": 8000.0,
+        "modal": 6890.0,
+        "komisi": 689.0,
+        "laba": 421.0
+      },
+      {
+        "nama": "ROTI MARYAM ORI SINGLE",
+        "harga": 3500.0,
+        "modal": 2680.0,
+        "komisi": 268.0,
+        "laba": 552.0
+      },
+      {
+        "nama": "ZAMBI 10 CM DAGING SAPI",
+        "harga": 8000.0,
+        "modal": 5605.887958532696,
+        "komisi": 560.5887958532696,
+        "laba": 1833.5232456140347
+      },
+      {
+        "nama": "ZAMBI 10 CM SOSIZ+AYAM",
+        "harga": 8000.0,
+        "modal": 5951.940590111642,
+        "komisi": 595.1940590111643,
+        "laba": 1452.8653508771931
+      }
+    ];
+
+    const DB_RESEP = [
+      {
+        "namaMenu": "ZAMBI 10 CM SOSIZ+AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.5
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 4.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 0.2
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "BURGER MEDIUM NUGGET AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KEJU SLICE MEDIUM SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "NUGGET AYAM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "ROTI BURGER MEDIUM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "TIMUN IRIS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "TOMAT IRIS",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KERTAS NASI/BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "BURGER MEDIUM DAGING SAPI",
+        "komponen": [
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KEJU SLICE MEDIUM SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 45.0
+          },
+          {
+            "namaBahan": "ROTI BURGER MEDIUM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "TIMUN IRIS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "TOMAT IRIS",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KERTAS NASI/BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "BURGER MEDIUM DAGING SAPI DOUBLE BEEF",
+        "komponen": [
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KEJU SLICE MEDIUM SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 90.0
+          },
+          {
+            "namaBahan": "ROTI BURGER MEDIUM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "TIMUN IRIS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "TOMAT IRIS",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KERTAS NASI/BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "BURGER MEDIUM DAGING SAPI TANPA SAYUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KEJU SLICE MEDIUM SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 45.0
+          },
+          {
+            "namaBahan": "ROTI BURGER MEDIUM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KERTAS NASI/BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "BURGER MEDIUM NUGGET AYAM TANPA SAYUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KEJU SLICE MEDIUM SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "NUGGET AYAM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "ROTI BURGER MEDIUM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KERTAS NASI/BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM ORI SINGLE",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GULA NYES",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 1000.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 3000.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP KECIL 10 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP 20 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 50.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM COKLAT SINGLE",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GULA NYES",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 1000.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 3000.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP KECIL 10 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP 20 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 100.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 50.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM MINI COKLAT GOBIZ",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "GULA NYES",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP KECIL 10 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM MINI PAKET KENYANG COKLAT GOBIZ",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "GULA NYES",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "KOTAK BURGER",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ KECIL",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ (KECIL)",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ PEDAS KECIL",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ (KECIL) PEDAS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ TANPA SAYUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB SOSIZ TANPA SAYUR PEDAS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM (KECIL)",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 19/20 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MEDIUM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 19/20 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MEDIUM (PEDAS)",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 25.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 19/20 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MEDIUM TANPA SAYUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 19/20 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MEDIUM TANPA SAYUR PEDAS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 19/20 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM + SOSIZ (KECIL)",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 12.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM + SOSIZ (KECIL) PEDAS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 12.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM + SOSIZ (KECIL) TANPA SAYUR EKSTRA AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM + SOSIZ (KECIL) TANPA SAYUR EKSTRA SOSIZ",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM FULL SOSIZ + MOZZARELLA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM FULL SOSIZ+MOZZA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM SOSIS + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM SOSIS + ABON",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "ABON",
+            "butuh": 25.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM JAGUNG + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "JAGUNG",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM AYAM + JAMUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "JAMUR",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM MEAT LOVERS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YES 17 CM MEAT + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 64.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 28.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 13.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM FULL SOSIZ + MOZZARELLA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM FULL SOSIZ+MOZZA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM SOSIS + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM SOSIS + ABON",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "ABON",
+            "butuh": 40.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM JAGUNG + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAGUNG",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM AYAM + JAMUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAMUR",
+            "butuh": 4.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM MEAT LOVERS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAMUR",
+            "butuh": 4.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA YUHU 21 CM MEAT + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 70.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 112.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 22.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 18.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 10.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM FULL SOSIZ + MOZZARELLA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 6.5
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM SOSIZ + MOZZARELLA",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 6.5
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM SOSIS + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM SOSIZ + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 50.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM AYAM + JAMUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAMUR",
+            "butuh": 10.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM AYAM + JAMUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAMUR",
+            "butuh": 10.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM SOSIS + ABON",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 130.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "ABON",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM SOSIZ + ABON",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 130.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "SOSIZ BATANG",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "ABON",
+            "butuh": 60.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM JAGUNG + AYAM",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAGUNG",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM AYAM + JAGUNG",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 144.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 80.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "JAGUNG",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25 CM MEAT LOVERS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 130.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 10.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "PIZZA SIP 25CM MEAT LOVERS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 150.0
+          },
+          {
+            "namaBahan": "SAOS TOMAT SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 4.0
+          },
+          {
+            "namaBahan": "KEJU MOZZARELLA",
+            "butuh": 130.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 35.0
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 27.0
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 60.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 120.0
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "BAWANG BOMBAY",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 10.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ZAMBI 10 CM DAGING SAPI",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "DAGING SAPI",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "SAOS SAMBAL SACHET",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.5
+          },
+          {
+            "namaBahan": "GULA PASIR",
+            "butuh": 4.5
+          },
+          {
+            "namaBahan": "GARAM HALUS",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "VERMIPAN",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "SUSU BUBUK",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "TEPUNG SEGITIGA BIRU",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "TEPUNG CAKRA KEMBAR",
+            "butuh": 20.0
+          },
+          {
+            "namaBahan": "AIR PANAS (CC/GRAM)",
+            "butuh": 40.0
+          },
+          {
+            "namaBahan": "KALDU JAMUR",
+            "butuh": 0.5
+          },
+          {
+            "namaBahan": "BASIL",
+            "butuh": 0.2
+          },
+          {
+            "namaBahan": "PAPRIKA GRAM",
+            "butuh": 2.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 5.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM ORI PAKET KENYANG",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "GULA NYES",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM COKLAT PAKET KENYANG",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 3.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 15.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 7.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP SEDANG 13 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "ROTI MARYAM COKLAT PAKET DOBEL KENYANG",
+        "komponen": [
+          {
+            "namaBahan": "ROTI MARYAM",
+            "butuh": 6.0
+          },
+          {
+            "namaBahan": "MISIS COKLAT",
+            "butuh": 23.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 10.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 30.0
+          },
+          {
+            "namaBahan": "PLASTIK KLIP BESAR 15 CM",
+            "butuh": 1.0
+          },
+          {
+            "namaBahan": "KRESEK 15 CM",
+            "butuh": 1.0
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MINI",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 200.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 500.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 2250.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1350.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1200.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 350.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 76.66666666666667
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 55.0
+          },
+          {
+            "namaBahan": "MODAL",
+            "butuh": 6711.666666666667
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MINI TANPA SAYUR",
+        "komponen": [
+          {
+            "namaBahan": "SAOS TOMAT GRAM",
+            "butuh": 200.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 500.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 2812.5
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1350.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 350.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 76.66666666666667
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 55.0
+          },
+          {
+            "namaBahan": "MODAL",
+            "butuh": 6074.166666666667
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MINI (PEDAS)",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 450.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 336.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 500.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 2250.0
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1350.0
+          },
+          {
+            "namaBahan": "SLADA",
+            "butuh": 1200.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 350.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 76.66666666666667
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 55.0
+          },
+          {
+            "namaBahan": "MODAL",
+            "butuh": 7057.666666666667
+          }
+        ]
+      },
+      {
+        "namaMenu": "KEBAB AYAM MINI TANPA SAYUR PEDAS",
+        "komponen": [
+          {
+            "namaBahan": "SAOS SAMBAL GRAM",
+            "butuh": 450.0
+          },
+          {
+            "namaBahan": "SAOS BBQ GRAM",
+            "butuh": 336.0
+          },
+          {
+            "namaBahan": "MAYONAIS GRAM",
+            "butuh": 500.0
+          },
+          {
+            "namaBahan": "SAOS SPAGHETI GRAM",
+            "butuh": 240.0
+          },
+          {
+            "namaBahan": "AYAM SUWIR",
+            "butuh": 2812.5
+          },
+          {
+            "namaBahan": "KULIT KEBAB 17/18 CM",
+            "butuh": 1350.0
+          },
+          {
+            "namaBahan": "MENTEGA",
+            "butuh": 350.0
+          },
+          {
+            "namaBahan": "GAS ELPIJI",
+            "butuh": 76.66666666666667
+          },
+          {
+            "namaBahan": "KERTAS KEBAB",
+            "butuh": 250.0
+          },
+          {
+            "namaBahan": "KRESEK 10 CM",
+            "butuh": 55.0
+          },
+          {
+            "namaBahan": "MODAL",
+            "butuh": 6420.166666666667
+          }
+        ]
+      }
+    ];
+
+    const DB_MITRA = [
+      "ANGEL",
+      "ANI",
+      "CAHYA GALLERY",
+      "DANI",
+      "DENI",
+      "DEWI ZAKIYAH",
+      "GALIH",
+      "HANI",
+      "IIS SUGIARTI",
+      "INTAN",
+      "ISA FEFEN",
+      "KEDAI CERIA",
+      "LELI",
+      "MANDA",
+      "NANDA TRIANA",
+      "NUR PANTI",
+      "NURUL HIDAYATU SAMSIAH",
+      "QEQEL",
+      "RENI DWI ANGGRAINI",
+      "RIA",
+      "RINDA DWI",
+      "RISTA",
+      "ROIK",
+      "ULFA DWI LESTARI",
+      "VEBRI",
+      "VITA"
+    ];
+
+    const DB_CUST = [
+      "VEBRI CG",
+      "INNEKE",
+      "EVITA",
+      "RAVINDA WIDYA",
+      "ADMIN CG",
+      "FATHUR NURUL",
+      "NUR",
+      "LILY CG",
+      "OZI",
+      "ANIS COKLATAN CG",
+      "IZAH CG",
+      "RENI DWI ANGGRAINI",
+      "BU TJENDANI",
+      "PAK MEGA",
+      "RAHMA RIRIS",
+      "ULFA",
+      "ANGGI CG",
+      "MBAK NURUL",
+      "RASYA CG",
+      "NISA",
+      "VITA",
+      "BU RIRIN NURUL",
+      "ADEL",
+      "FEBRI",
+      "NADIA",
+      "SAROH CG",
+      "YENI CG",
+      "ADEL CG",
+      "BU MURTI",
+      "FERDI GOFOOD CG",
+      "VEBRI VEBRI",
+      "ANI ANI",
+      "FITRIA CG",
+      "ANI CG",
+      "NANDA NURUL",
+      "SAROH",
+      "CIK EN WA CG",
+      "LIFAH",
+      "BU AMA",
+      "ADE CG",
+      "BU RIRIS",
+      "GIBRAN KHALFANI",
+      "RINDA DWI",
+      "FEFEN",
+      "ELY CG",
+      "LELI CG",
+      "NADIA CG",
+      "BU RANI NURUL",
+      "MANDA",
+      "FIRA",
+      "IKLAN",
+      "PUTRA",
+      "MBAK YANTI",
+      "DIDIN CG",
+      "DIYAH",
+      "MBAK MITA",
+      "NOVI CG",
+      "DEWI ZAKIYAH NURUL",
+      "TITIN CG",
+      "LAILI",
+      "NORMA CG",
+      "LUT CG",
+      "NISVI",
+      "IIS",
+      "FIFIN CG",
+      "MOM TJENDANI",
+      "HAIKAL CG",
+      "REVA CG",
+      "FENI NURDIANA CG",
+      "RINO",
+      "MUNAWIR",
+      "YENI",
+      "RASTI CG",
+      "PUTRI",
+      "REVA",
+      "ULFA CG",
+      "ADMIN",
+      "QEELA",
+      "ANA",
+      "ROFIK CG",
+      "JUM",
+      "NUR CG",
+      "AFFAN CG",
+      "CIK EN WA",
+      "INDAH CG",
+      "ANA CG",
+      "FEFEN CG",
+      "CINDY CG",
+      "LILA",
+      "MIZAN CG",
+      "OLIP",
+      "BU FIKA",
+      "VITA CG",
+      "BU RIRIN ANI",
+      "INDAH",
+      "ANDRI ARIF CAHYONO",
+      "NANDA MISS",
+      "PUTRI CG",
+      "VIA",
+      "NOVEL",
+      "RIA NDU",
+      "DIDIN",
+      "FIRA INTAN",
+      "RIKA CG",
+      "AQEELA CG",
+      "ANIK SUKORAMBI",
+      "RINDA DWI CG",
+      "SHINTA",
+      "RAFA",
+      "ULFA NURUL",
+      "LUT",
+      "HANI NURUL",
+      "MBAH TI CG",
+      "BU URIP ANI",
+      "IFFAH FUAD",
+      "ITA CG",
+      "LILA CG",
+      "RISTA CG",
+      "TITIN",
+      "ZULAIKHA CG",
+      "ENDAH CG",
+      "SHOBIR CG",
+      "FINA CG",
+      "HAPPY",
+      "ARSYIL CG",
+      "ABIDZAR",
+      "DZIKRI",
+      "VIA CG",
+      "BU ELIS",
+      "ANI",
+      "BU FAID NURUL",
+      "BU ZULIATI",
+      "LAILA CG",
+      "PIT",
+      "RINO CG",
+      "FIRDAUS SEMPOL",
+      "LAILI CG",
+      "PIT CG",
+      "DEWI",
+      "JUNA CG",
+      "HANI",
+      "JUM CG",
+      "QIQI UDIN CG",
+      "RASTI",
+      "TANTE CHERY",
+      "WIDYA CG",
+      "RISTA",
+      "ARSYA CG",
+      "MUNAWIR CG",
+      "DISI",
+      "ENDAH",
+      "CINDY NUR",
+      "INUL CG",
+      "MUNIK CG",
+      "BIBI CG",
+      "NANDA CG",
+      "FATHUR CG",
+      "NORMA",
+      "BU NINING",
+      "TANTE CHERY CG",
+      "RARA GLENSERAN CG",
+      "FENI NURDIANA",
+      "IM CG",
+      "RAISA",
+      "RAHMA NURUL",
+      "EVITA CG",
+      "CICI CG",
+      "ARSYIL",
+      "RARA CG",
+      "ABIL",
+      "PUTRA CG",
+      "DEWI ZAKIYAH",
+      "IFFA FUAD CG",
+      "SULTON",
+      "AKMAL",
+      "ZULAIKHA",
+      "BU AIS",
+      "FERDI GOFOOD",
+      "SHOBIR NURUL",
+      "MBAH TI",
+      "SISIL CG",
+      "YAYUK CG",
+      "ANGEL",
+      "ADIF CG",
+      "ARSYA",
+      "FIFIN",
+      "MAS LUNG",
+      "HASBY CG",
+      "LILA NURUL",
+      "MBAK NURUL CG",
+      "CAHYO CG",
+      "DENI",
+      "INTAN",
+      "WIDYA",
+      "LINA NURUL",
+      "LIA",
+      "RAISA CG",
+      "WULAN CG",
+      "OLIP CG",
+      "FILLI",
+      "MUNIK",
+      "FEBY GIBRAN",
+      "NOVEL CG",
+      "ITA",
+      "BU NINING CG",
+      "ANDRI ARIF CG",
+      "LEK LIS CG",
+      "AFFAN",
+      "NISA CG",
+      "BAGAS CG",
+      "SHINTA CG",
+      "YUNI QEELA",
+      "ADE",
+      "AGUNG",
+      "FINTA",
+      "ROIK NURUL",
+      "CG",
+      "ANGGI",
+      "NANDA",
+      "LINDA KIA DANU",
+      "VEBRI",
+      "LELI",
+      "ROIK",
+      "ROIK CG",
+      "HANI CG"
+    ];
+
+    let dbRekapKomisi = [
+      {
+        "nama": "NURUL HIDAYATU SAMSIAH",
+        "k_utama": 36214.73309409889,
+        "k_lain": 83000.0,
+        "sisa_awal": -0.25342560948774917,
+        "tot_komisi": 119214.4796684894,
+        "tarik": 119214.0,
+        "sisa_akhir": 0.47966848939540796
+      },
+      {
+        "nama": "DENI",
+        "k_utama": 2058.9105263157894,
+        "k_lain": 0.0,
+        "sisa_awal": -0.309448621554111,
+        "tot_komisi": 2058.6010776942353,
+        "tarik": 0.0,
+        "sisa_akhir": 2058.6010776942353
+      },
+      {
+        "nama": "RENI DWI ANGGRAINI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 0.47087719298360753,
+        "tot_komisi": 0.47087719298360753,
+        "tarik": 0.0,
+        "sisa_akhir": 0.47087719298360753
+      },
+      {
+        "nama": "ULFA DWI LESTARI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.4544152046742056,
+        "tot_komisi": -0.4544152046742056,
+        "tarik": 0.0,
+        "sisa_akhir": -0.4544152046742056
+      },
+      {
+        "nama": "RINDA DWI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 0.0,
+        "tot_komisi": 0.0,
+        "tarik": 0.0,
+        "sisa_akhir": 0.0
+      },
+      {
+        "nama": "IIS SUGIARTI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.49605263157855006,
+        "tot_komisi": -0.49605263157855006,
+        "tarik": 0.0,
+        "sisa_akhir": -0.49605263157855006
+      },
+      {
+        "nama": "NANDA TRIANA",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 0.42889724310816746,
+        "tot_komisi": 0.42889724310816746,
+        "tarik": 0.0,
+        "sisa_akhir": 0.42889724310816746
+      },
+      {
+        "nama": "DEWI ZAKIYAH",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.35497076023375485,
+        "tot_komisi": -0.35497076023375485,
+        "tarik": 0.0,
+        "sisa_akhir": -0.35497076023375485
+      },
+      {
+        "nama": "ISA FEFEN",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 0.42982456140634895,
+        "tot_komisi": 0.42982456140634895,
+        "tarik": 0.0,
+        "sisa_akhir": 0.42982456140634895
+      },
+      {
+        "nama": "CAHYA GALLERY",
+        "k_utama": 12660.789633173845,
+        "k_lain": 0.0,
+        "sisa_awal": 1635.342936887755,
+        "tot_komisi": 14296.1325700616,
+        "tarik": 0.0,
+        "sisa_akhir": 14296.1325700616
+      },
+      {
+        "nama": "INTAN",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.32444444444445253,
+        "tot_komisi": -0.32444444444445253,
+        "tarik": 0.0,
+        "sisa_akhir": -0.32444444444445253
+      },
+      {
+        "nama": "HANI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.0069476722110266564,
+        "tot_komisi": -0.0069476722110266564,
+        "tarik": 0.0,
+        "sisa_akhir": -0.0069476722110266564
+      },
+      {
+        "nama": "NUR PANTI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 5108.820618212198,
+        "tot_komisi": 5108.820618212198,
+        "tarik": 0.0,
+        "sisa_akhir": 5108.820618212198
+      },
+      {
+        "nama": "LELI",
+        "k_utama": 5859.80350877193,
+        "k_lain": 0.0,
+        "sisa_awal": -0.4848788638373662,
+        "tot_komisi": 5859.318629908093,
+        "tarik": 0.0,
+        "sisa_akhir": 5859.318629908093
+      },
+      {
+        "nama": "ANI",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": 0.27401837928482564,
+        "tot_komisi": 0.27401837928482564,
+        "tarik": 0.0,
+        "sisa_akhir": 0.27401837928482564
+      },
+      {
+        "nama": "ANGEL",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.2538642059862468,
+        "tot_komisi": -0.2538642059862468,
+        "tarik": 0.0,
+        "sisa_akhir": -0.2538642059862468
+      },
+      {
+        "nama": "VITA",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.4503554340572009,
+        "tot_komisi": -0.4503554340572009,
+        "tarik": 0.0,
+        "sisa_akhir": -0.4503554340572009
+      },
+      {
+        "nama": "QEQEL",
+        "k_utama": 22052.11100478469,
+        "k_lain": 4500.0,
+        "sisa_awal": 0.12496867167646997,
+        "tot_komisi": 26552.235973456365,
+        "tarik": 20000.0,
+        "sisa_akhir": 6552.235973456365
+      },
+      {
+        "nama": "RIA",
+        "k_utama": 55456.736842105245,
+        "k_lain": 0.0,
+        "sisa_awal": 0.3829778992721913,
+        "tot_komisi": 55457.11982000452,
+        "tarik": 52987.0,
+        "sisa_akhir": 2470.1198200045183
+      },
+      {
+        "nama": "KEDAI CERIA",
+        "k_utama": 0.0,
+        "k_lain": 0.0,
+        "sisa_awal": -0.18771929824561084,
+        "tot_komisi": -0.18771929824561084,
+        "tarik": 0.0,
+        "sisa_akhir": -0.18771929824561084
+      }
+    ];
+
+    // SALDO AWAL PERSIS DARI SHEET REKAP KEUANGAN EXCEL
+    const NILAI_ASET = 11212000;
+    const SALDO_AWAL_KAS_MODAL = 266391.20;
+    const SALDO_AWAL_KAS_TOKO = 124899.86;
+
+    let riwayatPenjualan = [];
+
+    // Format IDR Rupiah
+    const formatRp = (angka) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(angka);
+
+    // ==========================================
+    // LOGIKA LANDING PAGE & MODAL NAVIGASI
+    // ==========================================
+    function openDevModal(featureName) {
+      document.getElementById('devModalTitle').innerText = `${featureName} - Tahap Pengembangan`;
+      document.getElementById('devModalDesc').innerHTML = `Halaman <b>${featureName}</b> sedang dalam proses pengembangan konten dan penyesuaian menu. Anda dapat membuka menu <b>SERVICES</b> untuk mengakses aplikasi Kasir & Keuangan.`;
+      document.getElementById('modal-dev').classList.add('active');
+    }
+
+    function closeDevModal(e) {
+      if (e.target.id === 'modal-dev') {
+        document.getElementById('modal-dev').classList.remove('active');
+      }
+    }
+
+    function openLoginModal() {
+      document.getElementById('loginAlert').style.display = 'none';
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('modal-login').classList.add('active');
+    }
+
+    function closeLoginModal(e) {
+      if (e.target.id === 'modal-login') {
+        document.getElementById('modal-login').classList.remove('active');
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const p = document.getElementById('loginPass');
+      const btn = document.getElementById('togglePassBtn');
+      if (p.type === 'password') {
+        p.type = 'text';
+        btn.classList.remove('fa-eye');
+        btn.classList.add('fa-eye-slash');
+      } else {
+        p.type = 'password';
+        btn.classList.remove('fa-eye-slash');
+        btn.classList.add('fa-eye');
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+
+      // Kredensial default aman
+      if (user === 'admin' && pass === 'cahya2026') {
+        document.getElementById('modal-login').classList.remove('active');
+        document.getElementById('page-landing').style.display = 'none';
+        document.getElementById('app-keuangan').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        updateAllUI();
+      } else {
+        const alertBox = document.getElementById('loginAlert');
+        const alertMsg = document.getElementById('loginAlertMsg');
+        alertMsg.innerText = 'Username atau Password salah! Silakan coba lagi.';
+        alertBox.style.display = 'flex';
+      }
+    }
+
+    function logoutKeuangan() {
+      if (confirm('Apakah Anda ingin keluar dari Portal Keuangan & kembali ke Beranda?')) {
+        document.getElementById('app-keuangan').style.display = 'none';
+        document.getElementById('page-landing').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // ==========================================
+    // LOGIKA POS KASIR & REKAP KEUANGAN
+    // ==========================================
+    function init() {
+      // Datalist Mitra & Cust
+      document.getElementById('listMitra').innerHTML = DB_MITRA.map(m => `<option value="${m}">`).join('');
+      document.getElementById('listCust').innerHTML = DB_CUST.map(c => `<option value="${c}">`).join('');
+
+      // Select Menu Terjual
+      const selMenu = document.getElementById('jualMenu');
+      const selResep = document.getElementById('pilihLihatResep');
+
+      let optMenu = '<option value="">-- Pilih Menu Terjual --</option>';
+      DB_KATALOG.forEach(k => {
+        if (k.harga > 0) {
+          optMenu += `<option value="${k.nama}">${k.nama} - ${formatRp(k.harga)}</option>`;
+        }
+      });
+      selMenu.innerHTML = optMenu;
+
+      let optResep = '<option value="">-- Pilih Menu --</option>';
+      DB_RESEP.forEach(r => { optResep += `<option value="${r.namaMenu}">${r.namaMenu}</option>`; });
+      selResep.innerHTML = optResep;
+
+      updateAllUI();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Hitung Nilai Fisik Stok Bahan Baku Dapur Realtime
+    function hitungNilaiStokDapurRealtime() {
+      return DB_BAHAN.reduce((total, b) => {
+        return total + (b.stok * (b.harga_satuan || 0));
+      }, 0);
+    }
+
+    function renderStok() {
+      const tbody = document.getElementById('tabelStok');
+      tbody.innerHTML = DB_BAHAN.map(b => {
+        const nilaiBahan = b.stok * (b.harga_satuan || 0);
+        return `
+          <tr>
+            <td><b>${b.nama}</b></td>
+            <td class="${b.stok <= 5 ? 'text-red' : 'text-green'} font-weight-bold">${b.stok.toLocaleString('id-ID')}</td>
+            <td>${b.satuan}</td>
+            <td>${formatRp(nilaiBahan)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function lihatResep() {
+      const nama = document.getElementById('pilihLihatResep').value;
+      const resep = DB_RESEP.find(r => r.namaMenu.trim().toLowerCase() === nama.trim().toLowerCase());
+      const tbody = document.getElementById('tabelDetailResep');
+
+      if (!resep) { tbody.innerHTML = '<tr><td colspan="2">Pilih menu untuk melihat resep</td></tr>'; return; }
+
+      tbody.innerHTML = resep.komponen.map(k => {
+        const b = DB_BAHAN.find(x => x.nama === k.namaBahan);
+        return `<tr><td>${k.namaBahan}</td><td><b>${k.butuh}</b> ${b ? b.satuan : ''}</td></tr>`;
+      }).join('');
+    }
+
+    // Helper: Mencari Resep dengan Fleksibilitas Spasi & Kurung
+    function findResepMenu(menuName) {
+      if (!menuName) return null;
+      let clean = (s) => s.replace(/[\s\(\)\+\-_/]/g, '').toLowerCase();
+      let target = clean(menuName);
+      return DB_RESEP.find(r => clean(r.namaMenu) === target);
+    }
+
+    // PROSES TRANSAKSI KASIR
+    document.getElementById('formPenjualan').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const menu = document.getElementById('jualMenu').value;
+      const qty = parseInt(document.getElementById('jualQty').value);
+      const cust = document.getElementById('jualCust').value.trim();
+      const mitra = document.getElementById('jualMitra').value.trim();
+
+      const p = DB_KATALOG.find(k => k.nama === menu);
+      const resep = findResepMenu(menu);
+
+      if (resep) {
+        // Cek Kecukupan Stok Dapur
+        for (let k of resep.komponen) {
+          let bahan = DB_BAHAN.find(b => b.nama === k.namaBahan);
+          let butuh = k.butuh * qty;
+          if (!bahan || bahan.stok < butuh) {
+            alert(`🚨 STOK TIDAK CUKUP!\n\nBahan Baku: ${k.namaBahan}\nKebutuhan: ${butuh} ${bahan ? bahan.satuan : ''}\nSisa Stok Dapur: ${bahan ? bahan.stok : 0} ${bahan ? bahan.satuan : ''}`);
+            return;
+          }
+        }
+        // Potong Stok Dapur Otomatis
+        resep.komponen.forEach(k => {
+          let bahan = DB_BAHAN.find(b => b.nama === k.namaBahan);
+          if (bahan) {
+            bahan.stok -= (k.butuh * qty);
+          }
+        });
+      }
+
+      // Kalkulasi Nilai Transaksi
+      const totalRp = (p ? p.harga : 0) * qty;
+      const totalModal = (p ? p.modal : 0) * qty;
+      const totalKomisi = (p ? p.komisi : 0) * qty;
+      const totalLaba = (p ? p.laba : 0) * qty;
+      const waktu = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      const item = {
+        id: Date.now(),
+        waktu, cust, mitra, menu, qty,
+        totalRp, totalModal, totalKomisi, totalLaba
+      };
+
+      riwayatPenjualan.unshift(item);
+
+      // Auto Update Seluruh Komponen Tampilan
+      updateAllUI();
+
+      // Reset Form Qty
+      document.getElementById('jualQty').value = 1;
+      alert("✅ Transaksi Berhasil Diproses! Stok bahan dapur telah berkurang & rekap keuangan telah diperbarui secara realtime.");
+    });
+
+    // HAPUS TRANSAKSI (BATAL / RETUR)
+    function hapusPenjualan(id) {
+      const index = riwayatPenjualan.findIndex(item => item.id === id);
+      if (index === -1) return;
+
+      const item = riwayatPenjualan[index];
+
+      if (confirm(`Apakah Anda yakin ingin MENGHAPUS transaksi ini?\n\nCustomer: ${item.cust}\nMenu: ${item.menu} (${item.qty} porsi)\n\nStok bahan baku dapur akan DIKEMBALIKAN otomatis.`)) {
+        // Kembalikan Stok Dapur
+        const resep = findResepMenu(item.menu);
+        if (resep) {
+          resep.komponen.forEach(k => {
+            let bahan = DB_BAHAN.find(b => b.nama === k.namaBahan);
+            if (bahan) {
+              bahan.stok += (k.butuh * item.qty);
+            }
+          });
+        }
+
+        // Hapus dari riwayat
+        riwayatPenjualan.splice(index, 1);
+
+        // Auto Update Realtime
+        updateAllUI();
+        alert("🗑️ Transaksi telah dihapus. Stok bahan baku dapur dan rekap kas telah diperbarui otomatis.");
+      }
+    }
+
+    // UPDATE SEMUA TAMPILAN SECARA REALTIME
+    function updateAllUI() {
+      // 1. Render Stok Dapur
+      renderStok();
+
+      // 2. Render Tabel Riwayat Penjualan Terbaru
+      const tbodyRiwayat = document.getElementById('tabelRiwayat');
+      if (riwayatPenjualan.length === 0) {
+        tbodyRiwayat.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 25px; color: #64748b;">Belum ada transaksi penjualan recorded hari ini.</td></tr>`;
+      } else {
+        tbodyRiwayat.innerHTML = riwayatPenjualan.map(r => `
+          <tr>
+            <td>${r.waktu}</td>
+            <td><b>${r.cust}</b></td>
+            <td>${r.mitra}</td>
+            <td>${r.menu}</td>
+            <td><b>${r.qty}</b></td>
+            <td class="text-green font-weight-bold">${formatRp(r.totalRp)}</td>
+            <td>${formatRp(r.totalModal)}</td>
+            <td>${formatRp(r.totalKomisi)}</td>
+            <td class="text-green">${formatRp(r.totalLaba)}</td>
+            <td style="text-align:center;">
+              <button class="btn-delete" onclick="hapusPenjualan(${r.id})">
+                <i class="fa-solid fa-trash"></i> Hapus
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // 3. Akumulasi Total Penjualan Baru
+      let totalOmzetHariIni = riwayatPenjualan.reduce((sum, i) => sum + i.totalRp, 0);
+      let totalPorsiHariIni = riwayatPenjualan.reduce((sum, i) => sum + i.qty, 0);
+      let totalModalJualHariIni = riwayatPenjualan.reduce((sum, i) => sum + i.totalModal, 0);
+      let totalKomisiJualHariIni = riwayatPenjualan.reduce((sum, i) => sum + i.totalKomisi, 0);
+      let totalLabaJualHariIni = riwayatPenjualan.reduce((sum, i) => sum + i.totalLaba, 0);
+
+      // Update POS Stat Cards
+      document.getElementById('statOmzet').innerText = formatRp(totalOmzetHariIni);
+      document.getElementById('statJual').innerText = `${totalPorsiHariIni} Porsi`;
+      document.getElementById('statModalTerjual').innerText = formatRp(totalModalJualHariIni);
+      document.getElementById('statKomisiHariIni').innerText = formatRp(totalKomisiJualHariIni);
+      document.getElementById('statLabaHariIni').innerText = formatRp(totalLabaJualHariIni);
+
+      // 4. Update Saldo Kas Realtime
+      let currentKasToko = SALDO_AWAL_KAS_TOKO + totalLabaJualHariIni;
+      let currentKasModal = SALDO_AWAL_KAS_MODAL + totalModalJualHariIni;
+
+      // Map penambahan komisi baru ke database mitra
+      let mapKomisiBaru = {};
+      riwayatPenjualan.forEach(i => {
+        if (!mapKomisiBaru[i.mitra]) mapKomisiBaru[i.mitra] = 0;
+        mapKomisiBaru[i.mitra] += i.totalKomisi;
+      });
+
+      // Hitung Total Sisa Akhir Komisi Mitra Realtime
+      let totalSisaKomisiMitra = dbRekapKomisi.reduce((sum, item) => {
+        let komisiBaru = mapKomisiBaru[item.nama] || 0;
+        let sisaAkhir = item.tot_komisi + komisiBaru - item.tarik;
+        return sum + sisaAkhir;
+      }, 0);
+
+      // Hitung komisi dari mitra di luar 20 tabel utama (jika ada)
+      for (let mitraName in mapKomisiBaru) {
+        if (!dbRekapKomisi.some(m => m.nama === mitraName)) {
+          totalSisaKomisiMitra += mapKomisiBaru[mitraName];
+        }
+      }
+
+      // Hitung Nilai Fisik Stok Bahan Dapur Terkini
+      let currentNilaiStokBahan = hitungNilaiStokDapurRealtime();
+
+      // Rekapitulasi Dashboard Atas (Sinkron Sesuai Formula Excel Sheet REKAP KEUANGAN)
+      document.getElementById('rkNilaiAset').innerText = formatRp(NILAI_ASET);
+      document.getElementById('rkStokAkhir').innerText = formatRp(currentNilaiStokBahan);
+      document.getElementById('rkKasModal').innerText = formatRp(currentKasModal);
+
+      // FORMULA EXCEL CELL D5: STOK AKHIR + SALDO KAS PERPUTARAN MODAL
+      let totalModalKeseluruhan = currentNilaiStokBahan + currentKasModal;
+      document.getElementById('rkTotalModalKeseluruhan').innerText = formatRp(totalModalKeseluruhan);
+
+      document.getElementById('rkKasToko').innerText = formatRp(currentKasToko);
+      document.getElementById('rkSisaKomisi').innerText = formatRp(totalSisaKomisiMitra);
+
+      // FORMULA EXCEL CELL C4: ASET + STOK + KAS MODAL + KAS TOKO
+      let totalKekayaanAset = NILAI_ASET + currentNilaiStokBahan + currentKasModal + currentKasToko;
+      document.getElementById('rkTotalKekayaan').innerText = formatRp(totalKekayaanAset);
+
+      // FORMULA EXCEL CELL F6: KAS MODAL + KAS TOKO + SISA KOMISI MITRA
+      let uangLaciGerai = currentKasModal + currentKasToko + totalSisaKomisiMitra;
+      document.getElementById('rkUangLaci').innerText = formatRp(uangLaciGerai);
+
+      // Update Tab Buku Kas
+      document.getElementById('detailKasToko').innerText = `Saldo Terkini: ${formatRp(currentKasToko)}`;
+      document.getElementById('detailKasModal').innerText = `Saldo Terkini: ${formatRp(currentKasModal)}`;
+
+      // 5. Render Detail Tabel Rekap Komisi Mitra
+      const tbodyKomisi = document.getElementById('tabelKomisi');
+      tbodyKomisi.innerHTML = dbRekapKomisi.map(m => {
+        let komisiUtamaTerbaru = m.k_utama + (mapKomisiBaru[m.nama] || 0);
+        let totalKomisiTerbaru = komisiUtamaTerbaru + m.k_lain + m.sisa_awal;
+        let sisaAkhirTerbaru = totalKomisiTerbaru - m.tarik;
+
+        return `
+          <tr>
+            <td><b>${m.nama}</b></td>
+            <td>${formatRp(komisiUtamaTerbaru)}</td>
+            <td>${formatRp(m.k_lain)}</td>
+            <td>${formatRp(m.sisa_awal)}</td>
+            <td><b>${formatRp(totalKomisiTerbaru)}</b></td>
+            <td class="text-red">${m.tarik > 0 ? formatRp(m.tarik) : '-'}</td>
+            <td class="text-purple font-weight-bold">${formatRp(sisaAkhirTerbaru)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function exportExcel(tableId, filename) {
+      const table = document.getElementById(tableId);
+      const wb = XLSX.utils.table_to_book(table, { sheet: "Laporan" });
+      XLSX.writeFile(wb, `${filename}.xlsx`);
+    }
+
+    // ==========================================
+    // HERO SHOWCASE SLIDER DENGAN MORPH TRANSITION
+    // ==========================================
+    const HERO_SLIDES = [
+      {
+        title: 'BURGER',
+        badge: 'BURGER MEDIUM DAGING SAPI',
+        specialTitle: 'SPECIAL BURGER RECIPE',
+        desc: 'Kelezatan burger premium Cahya Gallery dibuat dari patty daging sapi juicy beraroma gurih, keju lumer, dan racikan bumbu saos istimewa dalam balutan bun lembut.',
+        icon: 'fa-solid fa-burger'
+      },
+      {
+        title: 'KEBAB',
+        badge: 'KEBAB AYAM & SOSIS CRISPY',
+        specialTitle: 'AUTHENTIC CRISPY KEBAB',
+        desc: 'Kebab gurih lezat dengan isian daging ayam panggang suwir dan sosis istimewa berlimpah, dipadu sayur segar serta saus spesial dalam kulit tortilla renyah.',
+        icon: 'fa-solid fa-bacon'
+      },
+      {
+        title: 'PIZZA',
+        badge: 'PIZZA SPECIAL TOPPING ABON & SOSIS',
+        specialTitle: 'CRISPY & MELTY PIZZA',
+        desc: 'Pizza lezat bertekstur empuk renyah dengan limpahan topping istimewa, saus khas racikan Cahya Gallery, dan lelehan keju mozzarella yang harum menggoda.',
+        icon: 'fa-solid fa-pizza-slice'
+      },
+      {
+        title: 'ROYAM',
+        badge: 'ROTI MARYAM LEGIT GURIH',
+        specialTitle: 'SWEET ROTI MARYAM',
+        desc: 'Roti Maryam khas Cahya Gallery bertekstur lembut berlapis, gurih di dalam dan renyah di luar, berpadu manisnya taburan gula halus dan butiran meses coklat legit.',
+        icon: 'fa-solid fa-cookie-bite'
+      }
+    ];
+
+    let currentHeroIndex = 0;
+    let heroSliderTimer = null;
+
+    function switchHeroSlide(targetIndex) {
+      if (targetIndex === currentHeroIndex) return;
+
+      const prevIndex = currentHeroIndex;
+
+      // Update slide images with smooth morph
+      document.querySelectorAll('.hero-slide-img').forEach((img, idx) => {
+        img.classList.remove('prev-morph');
+        if (idx === prevIndex) {
+          img.classList.remove('active');
+          img.classList.add('prev-morph');
+        } else if (idx === targetIndex) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+
+      // Update Navigation Pills
+      document.querySelectorAll('.slider-pill').forEach((pill, idx) => {
+        pill.classList.toggle('active', idx === targetIndex);
+      });
+
+      // Update Floating Badge
+      const data = HERO_SLIDES[targetIndex];
+      const badgeIcon = document.getElementById('sliderBadgeIcon');
+      const badgeText = document.getElementById('sliderBadgeText');
+      if (badgeIcon && badgeText) {
+        badgeIcon.className = data.icon;
+        badgeText.innerText = data.badge;
+      }
+
+      // Smooth Morph Transition for Left Column Typography
+      const outlineElem = document.getElementById('heroMenuOutline');
+      const specTitleElem = document.getElementById('heroSpecialTitle');
+      const specDescElem = document.getElementById('heroSpecialDesc');
+
+      [outlineElem, specTitleElem, specDescElem].forEach(el => {
+        if (el) el.classList.add('changing');
+      });
+
+      setTimeout(() => {
+        if (outlineElem) outlineElem.innerText = data.title;
+        if (specTitleElem) specTitleElem.innerText = data.specialTitle;
+        if (specDescElem) specDescElem.innerText = data.desc;
+
+        [outlineElem, specTitleElem, specDescElem].forEach(el => {
+          if (el) el.classList.remove('changing');
+        });
+      }, 350);
+
+      currentHeroIndex = targetIndex;
+      resetHeroSliderTimer();
+    }
+
+    function autoNextHeroSlide() {
+      let nextIndex = (currentHeroIndex + 1) % HERO_SLIDES.length;
+      switchHeroSlide(nextIndex);
+    }
+
+    function resetHeroSliderTimer() {
+      if (heroSliderTimer) clearInterval(heroSliderTimer);
+      heroSliderTimer = setInterval(autoNextHeroSlide, 4500);
+    }
+
+    function pauseHeroSlider() {
+      if (heroSliderTimer) clearInterval(heroSliderTimer);
+    }
+
+    function resumeHeroSlider() {
+      resetHeroSliderTimer();
+    }
+
+    init();
+    resetHeroSliderTimer();
+  </script>
+</body>
+
+</html>

@@ -1318,8 +1318,8 @@
           <label>Username</label>
           <div class="login-input-wrapper">
             <i class="fa-solid fa-user prefix-icon"></i>
-            <input type="text" id="loginUser" class="login-input" placeholder="Masukkan Username" value="admin" required
-              autocomplete="username">
+            <input type="text" id="loginUser" class="login-input" placeholder="Masukkan Username" required
+              autocomplete="off">
           </div>
         </div>
 
@@ -1327,8 +1327,8 @@
           <label>Password</label>
           <div class="login-input-wrapper">
             <i class="fa-solid fa-lock prefix-icon"></i>
-            <input type="password" id="loginPass" class="login-input" placeholder="Masukkan Password" value="cahya2026"
-              required autocomplete="current-password">
+            <input type="password" id="loginPass" class="login-input" placeholder="Masukkan Password"
+              required autocomplete="off">
             <i class="fa-solid fa-eye toggle-pwd" id="togglePassBtn" onclick="togglePasswordVisibility()"></i>
           </div>
         </div>
@@ -1336,10 +1336,6 @@
         <button type="submit" class="btn-read-more" style="width: 100%; border-radius: 12px; margin-top: 10px;">
           <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Sistem Keuangan
         </button>
-
-        <div class="demo-hint">
-          <i class="fa-solid fa-circle-info"></i> Akun Login: User: <b>admin</b> | Sandi: <b>cahya2026</b>
-        </div>
       </form>
     </div>
   </div>
@@ -6539,6 +6535,8 @@
 
     function openLoginModal() {
       document.getElementById('loginAlert').style.display = 'none';
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
       document.getElementById('modal-login').classList.add('active');
     }
 

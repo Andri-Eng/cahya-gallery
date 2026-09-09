@@ -129,9 +129,10 @@
     .logo-img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #ffffff;
       border-radius: 50%;
-      display: none;
+      display: block;
     }
 
     .brand-name-text {
@@ -1168,9 +1169,9 @@
       <!-- Logo Bundar -->
       <div class="brand-circle" onclick="window.scrollTo({top:0, behavior:'smooth'})">
         <div class="logo-img-wrapper">
-          <img src="images/logo.png" alt="Logo" class="logo-img"
+          <img src="images/logo-cahya-gallery.png" alt="Cahya Gallery" class="logo-img"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="logo-badge">
+          <div class="logo-badge" style="display: none;">
             <i class="fa-solid fa-burger"></i>
             <span>BURGER</span>
             <span>PLACE</span>

@@ -426,38 +426,166 @@
       color: var(--accent-orange);
     }
 
-    /* Right Hero Visual (Burger Image) */
+    /* Right Hero Visual (Morph Culinary Showcase) */
     .hero-visual {
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 22px;
     }
 
     .burger-glow-circle {
       position: absolute;
-      width: 440px;
-      height: 440px;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(217, 119, 6, 0.08) 50%, rgba(0, 0, 0, 0) 75%);
       border-radius: 50%;
       z-index: 1;
       pointer-events: none;
+      animation: pulseGlow 5s infinite alternate ease-in-out;
     }
 
-    .burger-hero-img {
-      width: 100%;
-      max-width: 580px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 20px;
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    .hero-slider-frame {
       position: relative;
+      width: 100%;
+      max-width: 560px;
+      height: 420px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #231209 0%, #0d0605 100%);
+      border: 2px solid rgba(245, 158, 11, 0.35);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 158, 11, 0.2);
       z-index: 2;
-      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
-      transition: transform 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
     }
 
-    .burger-hero-img:hover {
-      transform: scale(1.03) rotate(-1deg);
+    .hero-slider-frame:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(245, 158, 11, 0.35);
+    }
+
+    /* Morphing Slide Images */
+    .hero-slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.12) rotate(1.5deg);
+      filter: blur(8px) brightness(0.9);
+      transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  filter 1.1s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-slide-img.active {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px) brightness(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .hero-slide-img.prev-morph {
+      opacity: 0;
+      transform: scale(0.92) rotate(-1.5deg);
+      filter: blur(8px) brightness(0.8);
+      z-index: 1;
+    }
+
+    /* Floating culinary badge */
+    .slider-tag-badge {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(14, 8, 7, 0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 9px 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 3;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .slider-tag-badge i {
+      color: var(--accent-orange);
+      font-size: 15px;
+    }
+
+    /* Navigation Pills */
+    .slider-nav-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      z-index: 3;
+      flex-wrap: wrap;
+    }
+
+    .slider-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 9px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      backdrop-filter: blur(8px);
+    }
+
+    .slider-pill:hover {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .slider-pill.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-color: #f59e0b;
+      color: #000;
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Text morph transitions */
+    .text-morph {
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: opacity, transform;
+    }
+
+    .text-morph.changing {
+      opacity: 0;
+      transform: translateY(12px);
     }
 
     /* =======================================================
@@ -1153,6 +1281,23 @@
         flex-wrap: wrap;
         justify-content: center;
       }
+
+      .hero-slider-frame {
+        height: 280px;
+        border-radius: 20px;
+      }
+
+      .slider-pill {
+        font-size: 11px;
+        padding: 7px 12px;
+      }
+
+      .slider-tag-badge {
+        font-size: 11px;
+        padding: 6px 12px;
+        bottom: 12px;
+        left: 12px;
+      }
     }
   </style>
 </head>
@@ -1220,7 +1365,7 @@
         <div class="hero-title-group">
           <span class="hero-title-solid">THE BEST</span>
           <div class="hero-title-row">
-            <span class="hero-title-outline">BURGER</span>
+            <span class="hero-title-outline text-morph" id="heroMenuOutline">BURGER</span>
             <div class="sketch-burger-box">
               <img src="images/sketch-burger.png" alt="Sketch Burger" class="sketch-burger-img"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
@@ -1244,8 +1389,8 @@
 
         <!-- Special Ingredients Info -->
         <div class="hero-special-block">
-          <h2 class="hero-special-title">SPECIAL INGREDIENTS</h2>
-          <p class="hero-special-desc">
+          <h2 class="hero-special-title text-morph" id="heroSpecialTitle">SPECIAL INGREDIENTS</h2>
+          <p class="hero-special-desc text-morph" id="heroSpecialDesc">
             Kelezatan burger dan aneka kuliner premium Cahya Gallery dibuat dari komposisi bahan segar berkualitas
             tinggi, daging pilihan beraroma gurih, dan racikan bumbu istimewa yang terstandarisasi.
           </p>
@@ -1258,11 +1403,36 @@
 
       </div>
 
-      <!-- Right Column: Visual Burger Plate -->
+      <!-- Right Column: Visual Showcase Slider -->
       <div class="hero-visual">
         <div class="burger-glow-circle"></div>
-        <img src="images/hero-burger.png" alt="The Best Burger" class="burger-hero-img"
-          onerror="this.src='images/hero-burger.jpg';">
+        <div class="hero-slider-frame" id="heroSliderFrame" onmouseenter="pauseHeroSlider()" onmouseleave="resumeHeroSlider()">
+          <img src="images/cahya-burger.png" alt="Cahya Burger" class="hero-slide-img active" id="slide-0">
+          <img src="images/cahya-kebab.png" alt="Cahya Kebab" class="hero-slide-img" id="slide-1">
+          <img src="images/cahya-pizza.png" alt="Cahya Pizza" class="hero-slide-img" id="slide-2">
+          <img src="images/cahya-royam.png" alt="Cahya Royam" class="hero-slide-img" id="slide-3">
+          
+          <div class="slider-tag-badge" id="sliderBadge">
+            <i class="fa-solid fa-burger" id="sliderBadgeIcon"></i>
+            <span id="sliderBadgeText">BURGER MEDIUM DAGING SAPI</span>
+          </div>
+        </div>
+
+        <!-- Slider Navigation Pills -->
+        <div class="slider-nav-pills">
+          <button class="slider-pill active" onclick="switchHeroSlide(0)" id="pill-0">
+            <i class="fa-solid fa-burger"></i> BURGER
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(1)" id="pill-1">
+            <i class="fa-solid fa-bacon"></i> KEBAB
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(2)" id="pill-2">
+            <i class="fa-solid fa-pizza-slice"></i> PIZZA
+          </button>
+          <button class="slider-pill" onclick="switchHeroSlide(3)" id="pill-3">
+            <i class="fa-solid fa-cookie-bite"></i> ROYAM
+          </button>
+        </div>
       </div>
 
     </main>
@@ -6872,7 +7042,118 @@
       XLSX.writeFile(wb, `${filename}.xlsx`);
     }
 
+    // ==========================================
+    // HERO SHOWCASE SLIDER DENGAN MORPH TRANSITION
+    // ==========================================
+    const HERO_SLIDES = [
+      {
+        title: 'BURGER',
+        badge: 'BURGER MEDIUM DAGING SAPI',
+        specialTitle: 'SPECIAL BURGER RECIPE',
+        desc: 'Kelezatan burger premium Cahya Gallery dibuat dari patty daging sapi juicy beraroma gurih, keju lumer, dan racikan bumbu saos istimewa dalam balutan bun lembut.',
+        icon: 'fa-solid fa-burger'
+      },
+      {
+        title: 'KEBAB',
+        badge: 'KEBAB AYAM & SOSIS CRISPY',
+        specialTitle: 'AUTHENTIC CRISPY KEBAB',
+        desc: 'Kebab gurih lezat dengan isian daging ayam panggang suwir dan sosis istimewa berlimpah, dipadu sayur segar serta saus spesial dalam kulit tortilla renyah.',
+        icon: 'fa-solid fa-bacon'
+      },
+      {
+        title: 'PIZZA',
+        badge: 'PIZZA SPECIAL TOPPING ABON & SOSIS',
+        specialTitle: 'CRISPY & MELTY PIZZA',
+        desc: 'Pizza lezat bertekstur empuk renyah dengan limpahan topping istimewa, saus khas racikan Cahya Gallery, dan lelehan keju mozzarella yang harum menggoda.',
+        icon: 'fa-solid fa-pizza-slice'
+      },
+      {
+        title: 'ROYAM',
+        badge: 'ROTI MARYAM LEGIT GURIH',
+        specialTitle: 'SWEET ROTI MARYAM',
+        desc: 'Roti Maryam khas Cahya Gallery bertekstur lembut berlapis, gurih di dalam dan renyah di luar, berpadu manisnya taburan gula halus dan butiran meses coklat legit.',
+        icon: 'fa-solid fa-cookie-bite'
+      }
+    ];
+
+    let currentHeroIndex = 0;
+    let heroSliderTimer = null;
+
+    function switchHeroSlide(targetIndex) {
+      if (targetIndex === currentHeroIndex) return;
+
+      const prevIndex = currentHeroIndex;
+
+      // Update slide images with smooth morph
+      document.querySelectorAll('.hero-slide-img').forEach((img, idx) => {
+        img.classList.remove('prev-morph');
+        if (idx === prevIndex) {
+          img.classList.remove('active');
+          img.classList.add('prev-morph');
+        } else if (idx === targetIndex) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+
+      // Update Navigation Pills
+      document.querySelectorAll('.slider-pill').forEach((pill, idx) => {
+        pill.classList.toggle('active', idx === targetIndex);
+      });
+
+      // Update Floating Badge
+      const data = HERO_SLIDES[targetIndex];
+      const badgeIcon = document.getElementById('sliderBadgeIcon');
+      const badgeText = document.getElementById('sliderBadgeText');
+      if (badgeIcon && badgeText) {
+        badgeIcon.className = data.icon;
+        badgeText.innerText = data.badge;
+      }
+
+      // Smooth Morph Transition for Left Column Typography
+      const outlineElem = document.getElementById('heroMenuOutline');
+      const specTitleElem = document.getElementById('heroSpecialTitle');
+      const specDescElem = document.getElementById('heroSpecialDesc');
+
+      [outlineElem, specTitleElem, specDescElem].forEach(el => {
+        if (el) el.classList.add('changing');
+      });
+
+      setTimeout(() => {
+        if (outlineElem) outlineElem.innerText = data.title;
+        if (specTitleElem) specTitleElem.innerText = data.specialTitle;
+        if (specDescElem) specDescElem.innerText = data.desc;
+
+        [outlineElem, specTitleElem, specDescElem].forEach(el => {
+          if (el) el.classList.remove('changing');
+        });
+      }, 350);
+
+      currentHeroIndex = targetIndex;
+      resetHeroSliderTimer();
+    }
+
+    function autoNextHeroSlide() {
+      let nextIndex = (currentHeroIndex + 1) % HERO_SLIDES.length;
+      switchHeroSlide(nextIndex);
+    }
+
+    function resetHeroSliderTimer() {
+      if (heroSliderTimer) clearInterval(heroSliderTimer);
+      heroSliderTimer = setInterval(autoNextHeroSlide, 4500);
+    }
+
+    function pauseHeroSlider() {
+      if (heroSliderTimer) clearInterval(heroSliderTimer);
+    }
+
+    function resumeHeroSlider() {
+      resetHeroSliderTimer();
+    }
+
     init();
+    resetHeroSliderTimer();
   </script>
 </body>
 

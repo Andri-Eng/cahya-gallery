@@ -1512,6 +1512,53 @@
 
 
   <!-- ========================================================== -->
+  <!-- MODAL: PILIHAN 4 MENU UTAMA (BURGER, KEBAB, PIZZA, ROYAM)  -->
+  <!-- ========================================================== -->
+  <div id="modal-menu-utama" class="modal-overlay" onclick="closeMenuModal(event)">
+    <div class="modal-card" style="max-width: 550px;">
+      <button class="modal-close-btn"
+        onclick="document.getElementById('modal-menu-utama').classList.remove('active')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-icon">
+        <i class="fa-solid fa-utensils"></i>
+      </div>
+
+      <h3 class="modal-title">Menu Utama Kami</h3>
+      <p class="modal-desc">Pilih kategori kuliner favorit Anda untuk melihat detail kelezatan rasa dan bahan
+        premium kami:</p>
+
+      <div class="grid-menu-modal">
+        <div class="menu-modal-card" onclick="pilihMenuUtama(0)">
+          <div class="menu-modal-icon"><i class="fa-solid fa-burger"></i></div>
+          <div class="menu-modal-name">BURGER</div>
+          <div class="menu-modal-sub">Daging Juicy & Sayur Segar</div>
+        </div>
+
+        <div class="menu-modal-card" onclick="pilihMenuUtama(1)">
+          <div class="menu-modal-icon"><i class="fa-solid fa-bacon"></i></div>
+          <div class="menu-modal-name">KEBAB</div>
+          <div class="menu-modal-sub">Tortilla Renyah & Gurih</div>
+        </div>
+
+        <div class="menu-modal-card" onclick="pilihMenuUtama(2)">
+          <div class="menu-modal-icon"><i class="fa-solid fa-pizza-slice"></i></div>
+          <div class="menu-modal-name">PIZZA</div>
+          <div class="menu-modal-sub">Keju Mozzarella Melty</div>
+        </div>
+
+        <div class="menu-modal-card" onclick="pilihMenuUtama(3)">
+          <div class="menu-modal-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+          <div class="menu-modal-name">ROYAM</div>
+          <div class="menu-modal-sub">Roti Maryam Legit Manis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================== -->
   <!-- MODAL: LOGIN SERVICES (PORTAL KEUANGAN & POS)              -->
   <!-- ========================================================== -->
   <div id="modal-login" class="modal-overlay" onclick="closeLoginModal(event)">
@@ -1842,51 +1889,8 @@
         </div>
       </div>
 
-      <!-- ========================================================== -->
-      <!-- MODAL: PILIHAN 4 MENU UTAMA (BURGER, KEBAB, PIZZA, ROYAM)  -->
-      <!-- ========================================================== -->
-      <div id="modal-menu-utama" class="modal-overlay" onclick="closeMenuModal(event)">
-        <div class="modal-card" style="max-width: 550px;">
-          <button class="modal-close-btn"
-            onclick="document.getElementById('modal-menu-utama').classList.remove('active')">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-
-          <div class="modal-icon">
-            <i class="fa-solid fa-utensils"></i>
-          </div>
-
-          <h3 class="modal-title">Menu Utama Kami</h3>
-          <p class="modal-desc">Pilih kategori kuliner favorit Anda untuk melihat detail kelezatan rasa dan bahan
-            premium kami:</p>
-
-          <div class="grid-menu-modal">
-            <div class="menu-modal-card" onclick="pilihMenuUtama(0)">
-              <div class="menu-modal-icon"><i class="fa-solid fa-burger"></i></div>
-              <div class="menu-modal-name">BURGER</div>
-              <div class="menu-modal-sub">Daging Juicy & Sayur Segar</div>
-            </div>
-
-            <div class="menu-modal-card" onclick="pilihMenuUtama(1)">
-              <div class="menu-modal-icon"><i class="fa-solid fa-bacon"></i></div>
-              <div class="menu-modal-name">KEBAB</div>
-              <div class="menu-modal-sub">Tortilla Renyah & Gurih</div>
-            </div>
-
-            <div class="menu-modal-card" onclick="pilihMenuUtama(2)">
-              <div class="menu-modal-icon"><i class="fa-solid fa-pizza-slice"></i></div>
-              <div class="menu-modal-name">PIZZA</div>
-              <div class="menu-modal-sub">Keju Mozzarella Melty</div>
-            </div>
-
-            <div class="menu-modal-card" onclick="pilihMenuUtama(3)">
-              <div class="menu-modal-icon"><i class="fa-solid fa-cookie-bite"></i></div>
-              <div class="menu-modal-name">ROYAM</div>
-              <div class="menu-modal-sub">Roti Maryam Legit Manis</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
 
 
 

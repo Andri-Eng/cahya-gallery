@@ -1374,6 +1374,453 @@
       font-size: 11px;
       color: #94a3b8;
     }
+
+    /* =======================================================
+       KATALOG MENU PEMESANAN WHATSAPP & FLOATING CART
+       ======================================================= */
+    .catalog-modal-card {
+      max-width: 840px !important;
+      width: 95% !important;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px 28px !important;
+      text-align: left !important;
+      position: relative;
+    }
+
+    .brochure-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed rgba(245, 158, 11, 0.35);
+    }
+
+    .brochure-arabic {
+      font-size: 17px;
+      color: var(--accent-yellow);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .brochure-badge-cemilan {
+      display: inline-block;
+      padding: 3px 20px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1.5px solid var(--accent-orange);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--accent-yellow);
+      margin-top: 6px;
+    }
+
+    .catalog-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      scrollbar-width: thin;
+    }
+
+    .catalog-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .catalog-tab-btn:hover, .catalog-tab-btn.active {
+      background: var(--accent-orange);
+      color: #000;
+      border-color: var(--accent-orange);
+    }
+
+    .catalog-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 18px;
+      align-items: center;
+      transition: border-color 0.2s ease;
+    }
+
+    .catalog-section:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    @media (max-width: 640px) {
+      .catalog-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .catalog-img-col {
+        margin: 0 auto;
+      }
+    }
+
+    .catalog-img-col {
+      text-align: center;
+    }
+
+    .catalog-thumb-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .catalog-section:hover .catalog-thumb-img {
+      transform: scale(1.06);
+    }
+
+    .catalog-category-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .catalog-category-title span {
+      font-size: 13px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      color: var(--accent-orange);
+      letter-spacing: 0;
+    }
+
+    .catalog-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .catalog-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 10px 14px;
+      border-radius: 12px;
+      gap: 10px;
+    }
+
+    .catalog-item-info {
+      flex: 1;
+    }
+
+    .catalog-item-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 2px;
+    }
+
+    .catalog-item-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--accent-orange);
+    }
+
+    .cart-stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 3px 6px;
+    }
+
+    .stepper-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .stepper-btn:hover {
+      background: var(--accent-orange);
+      color: #000;
+    }
+
+    .stepper-qty {
+      font-size: 14px;
+      font-weight: 800;
+      min-width: 22px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .stepper-qty.active {
+      color: var(--accent-yellow);
+    }
+
+    .pizza-box {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px dashed rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .pizza-sizes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .pizza-size-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pizza-size-pill.active {
+      background: var(--accent-orange);
+      color: #000;
+      border-color: var(--accent-orange);
+    }
+
+    .pizza-topping-select {
+      width: 100%;
+      background: #170f0c;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .pizza-topping-select option {
+      background: #170f0c;
+      color: white;
+    }
+
+    .pizza-action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pizza-dynamic-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent-yellow);
+    }
+
+    .btn-add-pizza {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add-pizza:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    #floating-cart-bar {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(140%);
+      background: rgba(23, 15, 12, 0.95);
+      border: 1.5px solid var(--accent-orange);
+      border-radius: 50px;
+      padding: 10px 22px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 10050;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.3);
+      backdrop-filter: blur(12px);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    #floating-cart-bar.active {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cart-bar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-bar-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-orange);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cart-bar-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-bar-qty {
+      font-size: 12px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .cart-bar-total {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .btn-checkout-wa {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-checkout-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    }
+
+    .checkout-modal-card {
+      max-width: 560px !important;
+      width: 95% !important;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px 28px !important;
+      text-align: left !important;
+    }
+
+    .checkout-items-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+
+    .checkout-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      gap: 8px;
+    }
+
+    .checkout-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .checkout-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0 0;
+      border-top: 2px dashed rgba(245, 158, 11, 0.4);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .quick-chips {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip-btn:hover, .chip-btn.active {
+      background: var(--accent-orange);
+      color: #000;
+      border-color: var(--accent-orange);
+    }
+
+    .waktu-kirim-box {
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -1472,8 +1919,9 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="hero-btn-group">
-          <button class="btn-read-more" onclick="openDevModal('Special Ingredients & Cerita Kami')">READ MORE</button>
+        <div class="hero-btn-group" style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <button class="btn-read-more" onclick="openMenuModal()"><i class="fa-solid fa-utensils"></i> PESAN MENU (WA)</button>
+          <button class="btn-read-more" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff;" onclick="openDevModal('Special Ingredients & Cerita Kami')">READ MORE</button>
         </div>
 
       </div>
@@ -1547,51 +1995,369 @@
   <!-- ========================================================== -->
   <!-- MODAL: PILIHAN 4 MENU UTAMA (BURGER, KEBAB, PIZZA, ROYAM)  -->
   <!-- ========================================================== -->
+  <!-- ========================================================== -->
+  <!-- MODAL: KATALOG MENU LENGKAP & PEMESANAN WHATSAPP            -->
+  <!-- ========================================================== -->
   <div id="modal-menu-utama" class="modal-overlay" onclick="closeMenuModal(event)">
-    <div class="modal-card" style="max-width: 550px;">
+    <div class="modal-card catalog-modal-card">
       <button class="modal-close-btn" onclick="document.getElementById('modal-menu-utama').classList.remove('active')">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div class="modal-icon">
-        <i class="fa-solid fa-utensils"></i>
+      <!-- Brochure Header Banner -->
+      <div class="brochure-header">
+        <div class="brochure-arabic">السلام عليكم ورحمة الله وبركاته<br>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div style="font-weight: 800; font-size: 20px; color: #fff; letter-spacing: 0.5px; margin-top: 4px;">CAHYA GALLERY</div>
+        <div style="font-size: 11px; color: #94a3b8; letter-spacing: 1px;">SERBA SERBI CEMILAN EDUKASI</div>
+        <div class="brochure-badge-cemilan">"CEMILAN"</div>
       </div>
 
-      <h3 class="modal-title">Menu Utama Kami</h3>
-      <p class="modal-desc">Pilih kategori kuliner favorit Anda untuk melihat detail kelezatan rasa dan bahan
-        premium kami:</p>
+      <!-- Category Filter Tabs -->
+      <div class="catalog-tabs">
+        <button class="catalog-tab-btn active" onclick="filterCatalogCategory('all')"><i class="fa-solid fa-fire"></i> SEMUA</button>
+        <button class="catalog-tab-btn" onclick="filterCatalogCategory('burger')"><i class="fa-solid fa-burger"></i> BURGER</button>
+        <button class="catalog-tab-btn" onclick="filterCatalogCategory('kebab')"><i class="fa-solid fa-bacon"></i> KEBAB</button>
+        <button class="catalog-tab-btn" onclick="filterCatalogCategory('pizza')"><i class="fa-solid fa-pizza-slice"></i> PIZZA</button>
+        <button class="catalog-tab-btn" onclick="filterCatalogCategory('rocas')"><i class="fa-solid fa-bread-slice"></i> ROCAS</button>
+        <button class="catalog-tab-btn" onclick="filterCatalogCategory('royam')"><i class="fa-solid fa-cookie-bite"></i> ROTI MARYAM</button>
+      </div>
 
-      <div class="grid-menu-modal">
-        <div class="menu-modal-card" onclick="pilihMenuUtama(0)">
-          <div class="menu-modal-icon"><i class="fa-solid fa-burger"></i></div>
-          <div class="menu-modal-name">BURGER</div>
-          <div class="menu-modal-sub">Daging Juicy & Sayur Segar</div>
+      <!-- 1. KATEGORI BURGER -->
+      <div class="catalog-section" id="cat-burger">
+        <div class="catalog-img-col">
+          <img src="images/cahya-burger.png" alt="Burger Cahya Gallery" class="catalog-thumb-img">
         </div>
-
-        <div class="menu-modal-card" onclick="pilihMenuUtama(1)">
-          <div class="menu-modal-icon"><i class="fa-solid fa-bacon"></i></div>
-          <div class="menu-modal-name">KEBAB</div>
-          <div class="menu-modal-sub">Tortilla Renyah & Gurih</div>
-        </div>
-
-        <div class="menu-modal-card" onclick="pilihMenuUtama(2)">
-          <div class="menu-modal-icon"><i class="fa-solid fa-pizza-slice"></i></div>
-          <div class="menu-modal-name">PIZZA</div>
-          <div class="menu-modal-sub">Keju Mozzarella Melty</div>
-        </div>
-
-        <div class="menu-modal-card" onclick="pilihMenuUtama(3)">
-          <div class="menu-modal-icon"><i class="fa-solid fa-cookie-bite"></i></div>
-          <div class="menu-modal-name">ROYAM</div>
-          <div class="menu-modal-sub">Roti Maryam Legit Manis</div>
-        </div>
-
-        <div class="menu-modal-card" onclick="pilihMenuUtama(4)">
-          <div class="menu-modal-icon"><i class="fa-solid fa-bread-slice"></i></div>
-          <div class="menu-modal-name">ROCAS</div>
-          <div class="menu-modal-sub">Roti Panggang Gurih & Renyah</div>
+        <div>
+          <div class="catalog-category-title"><i class="fa-solid fa-burger" style="color:var(--accent-orange)"></i> BURGER <span>Pilihan Daging Spesial</span></div>
+          <div class="catalog-items-list">
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">BURGER M_S. DAGING SAPI</div>
+                <div class="catalog-item-price">Rp 15.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('burger-ms', -1)">-</button>
+                <span class="stepper-qty" id="qty-burger-ms">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('burger-ms', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">BURGER M_D. DAGING SAPI (DOUBLE BEEF)</div>
+                <div class="catalog-item-price">Rp 20.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('burger-md', -1)">-</button>
+                <span class="stepper-qty" id="qty-burger-md">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('burger-md', 1)">+</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- 2. KATEGORI KEBAB -->
+      <div class="catalog-section" id="cat-kebab">
+        <div class="catalog-img-col">
+          <img src="images/cahya-kebab.png" alt="Kebab Cahya Gallery" class="catalog-thumb-img">
+        </div>
+        <div>
+          <div class="catalog-category-title"><i class="fa-solid fa-bacon" style="color:var(--accent-orange)"></i> KEBAB <span>Tortilla Renyah & Gurih</span></div>
+          <div class="catalog-items-list">
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">KEBAB MINI SOSIZ/AYAM</div>
+                <div class="catalog-item-price">Rp 9.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('kebab-mini-sa', -1)">-</button>
+                <span class="stepper-qty" id="qty-kebab-mini-sa">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('kebab-mini-sa', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">KEBAB MINI SOSIZ+AYAM</div>
+                <div class="catalog-item-price">Rp 9.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('kebab-mini-plus', -1)">-</button>
+                <span class="stepper-qty" id="qty-kebab-mini-plus">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('kebab-mini-plus', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">KEBAB MEDIUM SOSIZ/AYAM</div>
+                <div class="catalog-item-price">Rp 12.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('kebab-med-sa', -1)">-</button>
+                <span class="stepper-qty" id="qty-kebab-med-sa">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('kebab-med-sa', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">KEBAB MEDIUM SOSIZ+AYAM</div>
+                <div class="catalog-item-price">Rp 12.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('kebab-med-plus', -1)">-</button>
+                <span class="stepper-qty" id="qty-kebab-med-plus">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('kebab-med-plus', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. KATEGORI PIZZA DENGAN DROPDOWN TOPPING & UKURAN -->
+      <div class="catalog-section" id="cat-pizza">
+        <div class="catalog-img-col">
+          <img src="images/cahya-pizza.png" alt="Pizza Cahya Gallery" class="catalog-thumb-img">
+        </div>
+        <div>
+          <div class="catalog-category-title"><i class="fa-solid fa-pizza-slice" style="color:var(--accent-orange)"></i> PIZZA <span>Keju Lumer & Aneka Topping</span></div>
+          
+          <!-- Zambi Fixed Row -->
+          <div class="catalog-item-row" style="margin-bottom: 12px;">
+            <div class="catalog-item-info">
+              <div class="catalog-item-name">ZAMBI Diameter 12 cm</div>
+              <div class="catalog-item-price">Rp 8.000</div>
+            </div>
+            <div class="cart-stepper">
+              <button class="stepper-btn" onclick="updateItemQty('pizza-zambi-12', -1)">-</button>
+              <span class="stepper-qty" id="qty-pizza-zambi-12">0</span>
+              <button class="stepper-btn" onclick="updateItemQty('pizza-zambi-12', 1)">+</button>
+            </div>
+          </div>
+
+          <!-- Pizza Configurator Box -->
+          <div class="pizza-box">
+            <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; display:block;">Pilih Ukuran Pizza:</label>
+            <div class="pizza-sizes">
+              <button class="pizza-size-pill active" id="btn-size-18" onclick="selectPizzaSize('18cm')">Diameter 18 cm (Rp 40k-45k)</button>
+              <button class="pizza-size-pill" id="btn-size-21" onclick="selectPizzaSize('21cm')">Diameter 21 cm (Rp 60k-65k)</button>
+              <button class="pizza-size-pill" id="btn-size-25" onclick="selectPizzaSize('25cm')">Diameter 25 cm (Rp 80k-85k)</button>
+            </div>
+
+            <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; display:block;">Pilih Varian Topping:</label>
+            <select id="pizzaToppingSelect" class="pizza-topping-select" onchange="onPizzaToppingChange()"></select>
+
+            <div class="pizza-action-row">
+              <div>
+                <span style="font-size: 11px; color: #94a3b8; display:block;">Harga Satuan:</span>
+                <span class="pizza-dynamic-price" id="pizzaPriceDisplay">Rp 40.000</span>
+              </div>
+              <button class="btn-add-pizza" onclick="addCustomPizzaToCart()">
+                <i class="fa-solid fa-plus"></i> Tambah Pizza ke Pesanan
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4. KATEGORI ROCAS -->
+      <div class="catalog-section" id="cat-rocas">
+        <div class="catalog-img-col">
+          <img src="images/cahya-rocas.png" alt="Rocas Cahya Gallery" class="catalog-thumb-img">
+        </div>
+        <div>
+          <div class="catalog-category-title"><i class="fa-solid fa-bread-slice" style="color:var(--accent-orange)"></i> ROCAS <span>(Roti Capit Ayam + Sosiz)</span></div>
+          <div class="catalog-items-list">
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROCAS MEDIUM (Roti Capit Ayam + Sosiz)</div>
+                <div class="catalog-item-price">Rp 9.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('rocas-med', -1)">-</button>
+                <span class="stepper-qty" id="qty-rocas-med">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('rocas-med', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. KATEGORI ROTI MARYAM -->
+      <div class="catalog-section" id="cat-royam">
+        <div class="catalog-img-col">
+          <img src="images/cahya-royam.png" alt="Roti Maryam Cahya Gallery" class="catalog-thumb-img">
+        </div>
+        <div>
+          <div class="catalog-category-title"><i class="fa-solid fa-cookie-bite" style="color:var(--accent-orange)"></i> ROTI MARYAM <span>Legit & Gurih</span></div>
+          <div class="catalog-items-list">
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM SINGLE ORI</div>
+                <div class="catalog-item-price">Rp 3.500</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-s-ori', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-s-ori">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-s-ori', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM SINGLE COKLAT</div>
+                <div class="catalog-item-price">Rp 4.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-s-coklat', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-s-coklat">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-s-coklat', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM KENYANG ORI</div>
+                <div class="catalog-item-price">Rp 8.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-k-ori', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-k-ori">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-k-ori', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM KENYANG COKLAT</div>
+                <div class="catalog-item-price">Rp 8.500</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-k-coklat', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-k-coklat">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-k-coklat', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM DOBEL KENYANG ORI</div>
+                <div class="catalog-item-price">Rp 15.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-dk-ori', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-dk-ori">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-dk-ori', 1)">+</button>
+              </div>
+            </div>
+            <div class="catalog-item-row">
+              <div class="catalog-item-info">
+                <div class="catalog-item-name">ROYAM DOBEL KENYANG COKLAT</div>
+                <div class="catalog-item-price">Rp 16.000</div>
+              </div>
+              <div class="cart-stepper">
+                <button class="stepper-btn" onclick="updateItemQty('royam-dk-coklat', -1)">-</button>
+                <span class="stepper-qty" id="qty-royam-dk-coklat">0</span>
+                <button class="stepper-btn" onclick="updateItemQty('royam-dk-coklat', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button to Open Checkout -->
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-checkout-wa" style="width: 100%; justify-content: center; padding: 14px; font-size: 15px;" onclick="openCheckoutModal()">
+          <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Lihat Rincian & Lanjut Order WhatsApp (<span id="btnModalTotalRp">Rp 0</span>)
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- FLOATING CART BAR (MUNCUL KETIKA ADA ITEM YANG DIPILIH)   -->
+  <!-- ========================================================== -->
+  <div id="floating-cart-bar">
+    <div class="cart-bar-info">
+      <div class="cart-bar-icon-box"><i class="fa-solid fa-cart-shopping"></i></div>
+      <div class="cart-bar-details">
+        <span class="cart-bar-qty"><span id="cartCount">0</span> Porsi Dipilih</span>
+        <span class="cart-bar-total" id="cartTotalRp">Rp 0</span>
+      </div>
+    </div>
+    <button class="btn-checkout-wa" onclick="openCheckoutModal()">
+      <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Checkout WA <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+
+  <!-- ========================================================== -->
+  <!-- MODAL: CHECKOUT & ISI DATA PENGIRIMAN WHATSAPP            -->
+  <!-- ========================================================== -->
+  <div id="modal-checkout-wa" class="modal-overlay" onclick="closeCheckoutModal(event)">
+    <div class="modal-card checkout-modal-card">
+      <button class="modal-close-btn" onclick="document.getElementById('modal-checkout-wa').classList.remove('active')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div class="modal-icon" style="background: rgba(37, 211, 102, 0.15); color: #25D366; margin: 0 auto 10px;">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <h3 class="modal-title">Konfirmasi Pesanan WhatsApp</h3>
+        <p class="modal-desc">Lengkapi data pengiriman di bawah untuk membuat draf pesanan otomatis ke WhatsApp admin:</p>
+      </div>
+
+      <!-- Box Ringkasan Item Terpilih -->
+      <label style="font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; display:block;">Item yang Dipesan:</label>
+      <div class="checkout-items-box" id="checkoutItemsList"></div>
+
+      <!-- Form Data Pengiriman -->
+      <form id="formCheckoutWA" onsubmit="handleSendWhatsApp(event)">
+        <div class="form-group">
+          <label>Nama Pemesan <span style="color:var(--accent-orange)">*</span></label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-user prefix-icon"></i>
+            <input type="text" id="waNama" class="login-input" placeholder="Masukkan nama Anda" required autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Alamat / Lokasi Pengiriman <span style="color:var(--accent-orange)">*</span></label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-location-dot prefix-icon"></i>
+            <input type="text" id="waAlamat" class="login-input" placeholder="Contoh: Jl. Melati No. 10 / Ambil di Gerai" required autocomplete="off">
+          </div>
+          <div class="quick-chips">
+            <button type="button" class="chip-btn" onclick="setQuickAlamat('Ambil di Gerai (Dine In / Take Away)')"><i class="fa-solid fa-store"></i> Ambil di Gerai</button>
+            <button type="button" class="chip-btn" onclick="setQuickAlamat('Kirim via Kurir/Ojek Online')"><i class="fa-solid fa-motorcycle"></i> Kirim Kurir</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Kapan Mau Dikirim? <span style="color:var(--accent-orange)">*</span></label>
+          <div class="quick-chips" style="margin-top: 0; margin-bottom: 8px;">
+            <button type="button" class="chip-btn active" id="chip-sekarang" onclick="setWaktuKirimMode('sekarang')">⚡ Secepatnya (Sekarang)</button>
+            <button type="button" class="chip-btn" id="chip-jadwal" onclick="setWaktuKirimMode('jadwal')">🕒 Tentukan Jam / Hari</button>
+          </div>
+          <div id="boxWaktuJadwal" style="display: none;">
+            <div class="login-input-wrapper">
+              <i class="fa-solid fa-clock prefix-icon"></i>
+              <input type="text" id="waWaktuCustom" class="login-input" placeholder="Contoh: Hari ini jam 16.30 WIB / Besok jam 10.00">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Catatan Tambahan (Opsional)</label>
+          <div class="login-input-wrapper">
+            <i class="fa-solid fa-pen prefix-icon"></i>
+            <input type="text" id="waCatatan" class="login-input" placeholder="Contoh: Pedas sedang, saus sambal dipisah, dll">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-checkout-wa" style="width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 12px; margin-top: 10px;">
+          <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Kirim Pesanan ke WhatsApp Sekarang
+        </button>
+      </form>
+
     </div>
   </div>
 
@@ -7309,7 +8075,338 @@
       resetHeroSliderTimer();
     }
 
+    // ==========================================
+    // LOGIKA PEMESANAN MENU VIA WHATSAPP (MULTI-ITEM)
+    // ==========================================
+    const MENU_CATALOG_DATA = {
+      'burger-ms': { name: 'BURGER M_S. DAGING SAPI', price: 15000 },
+      'burger-md': { name: 'BURGER M_D. DAGING SAPI', price: 20000 },
+      'kebab-mini-sa': { name: 'KEBAB MINI SOSIZ/AYAM', price: 9000 },
+      'kebab-mini-plus': { name: 'KEBAB MINI SOSIZ+AYAM', price: 9000 },
+      'kebab-med-sa': { name: 'KEBAB MEDIUM SOSIZ/AYAM', price: 12000 },
+      'kebab-med-plus': { name: 'KEBAB MEDIUM SOSIZ+AYAM', price: 12000 },
+      'rocas-med': { name: 'ROCAS MEDIUM (Roti Capit Ayam+Sosiz)', price: 9000 },
+      'royam-s-ori': { name: 'ROYAM SINGLE ORI', price: 3500 },
+      'royam-s-coklat': { name: 'ROYAM SINGLE COKLAT', price: 4000 },
+      'royam-k-ori': { name: 'ROYAM KENYANG ORI', price: 8000 },
+      'royam-k-coklat': { name: 'ROYAM KENYANG COKLAT', price: 8500 },
+      'royam-dk-ori': { name: 'ROYAM DOBEL KENYANG ORI', price: 15000 },
+      'royam-dk-coklat': { name: 'ROYAM DOBEL KENYANG COKLAT', price: 16000 },
+      'pizza-zambi-12': { name: 'ZAMBI Diameter 12 cm', price: 8000 }
+    };
+
+    const PIZZA_TOPPINGS = {
+      '18cm': [
+        { name: 'Ayam + Jamur', price: 40000 },
+        { name: 'Full Sosiz + Mozzarella', price: 40000 },
+        { name: 'Jagung + Ayam', price: 40000 },
+        { name: 'Meat Lovers', price: 40000 },
+        { name: 'Meat + Ayam', price: 40000 },
+        { name: 'Sosis + Ayam', price: 40000 },
+        { name: 'Sosis + Abon', price: 40000 },
+        { name: 'Korea Sekat Dasaran Ayam+Mozza', price: 45000 },
+        { name: 'Korea Sekat Dasaran Jagung+Mozza', price: 45000 },
+        { name: 'Korea Tabur', price: 45000 }
+      ],
+      '21cm': [
+        { name: 'Ayam + Jamur', price: 60000 },
+        { name: 'Full Sosiz + Mozzarella', price: 60000 },
+        { name: 'Jagung + Ayam', price: 60000 },
+        { name: 'Meat Lovers', price: 60000 },
+        { name: 'Meat + Ayam', price: 60000 },
+        { name: 'Sosis + Ayam', price: 60000 },
+        { name: 'Sosis + Abon', price: 60000 },
+        { name: 'Korea Sekat Dasaran Ayam+Mozza', price: 65000 },
+        { name: 'Korea Sekat Dasaran Jagung+Mozza', price: 65000 },
+        { name: 'Korea Tabur', price: 65000 }
+      ],
+      '25cm': [
+        { name: 'Ayam + Jamur', price: 80000 },
+        { name: 'Full Sosiz + Mozzarella', price: 80000 },
+        { name: 'Jagung + Ayam', price: 80000 },
+        { name: 'Meat Lovers', price: 80000 },
+        { name: 'Sosis + Ayam', price: 80000 },
+        { name: 'Sosis + Abon', price: 85000 },
+        { name: 'Korea Sekat Dasaran Ayam+Mozza', price: 85000 },
+        { name: 'Korea Sekat Dasaran Jagung+Mozza', price: 85000 },
+        { name: 'Korea Tabur', price: 85000 }
+      ]
+    };
+
+    let cart = {}; // key: itemKey, val: { name, price, qty }
+    let currentPizzaSize = '18cm';
+    let waktuKirimMode = 'sekarang';
+
+    function initPizzaConfigurator() {
+      selectPizzaSize('18cm');
+    }
+
+    function selectPizzaSize(sizeKey) {
+      currentPizzaSize = sizeKey;
+      document.querySelectorAll('.pizza-size-pill').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const activeBtn = document.getElementById(`btn-size-${sizeKey.replace('cm','')}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const select = document.getElementById('pizzaToppingSelect');
+      if (!select) return;
+
+      const toppings = PIZZA_TOPPINGS[sizeKey] || [];
+      select.innerHTML = toppings.map((t, idx) => `
+        <option value="${idx}">${t.name} - ${formatRp(t.price)}</option>
+      `).join('');
+
+      onPizzaToppingChange();
+    }
+
+    function onPizzaToppingChange() {
+      const select = document.getElementById('pizzaToppingSelect');
+      const idx = parseInt(select.value) || 0;
+      const toppings = PIZZA_TOPPINGS[currentPizzaSize] || [];
+      const chosen = toppings[idx] || toppings[0];
+      const display = document.getElementById('pizzaPriceDisplay');
+      if (display && chosen) {
+        display.innerText = formatRp(chosen.price);
+      }
+    }
+
+    function addCustomPizzaToCart() {
+      const select = document.getElementById('pizzaToppingSelect');
+      const idx = parseInt(select.value) || 0;
+      const toppings = PIZZA_TOPPINGS[currentPizzaSize] || [];
+      const chosen = toppings[idx] || toppings[0];
+      if (!chosen) return;
+
+      const sizeName = `PIZZA Diameter ${currentPizzaSize.replace('cm',' cm')}`;
+      const fullName = `${sizeName} (${chosen.name})`;
+      const itemKey = `pizza-${currentPizzaSize}-${chosen.name.replace(/[^a-zA-Z0-9]/g,'')}`;
+
+      if (!cart[itemKey]) {
+        cart[itemKey] = { name: fullName, price: chosen.price, qty: 0 };
+      }
+      cart[itemKey].qty += 1;
+
+      updateCartUI();
+      alert(`✅ Berhasil menambahkan 1x ${fullName} ke pesanan!`);
+    }
+
+    function updateItemQty(itemKey, delta) {
+      const itemDef = MENU_CATALOG_DATA[itemKey];
+      if (!itemDef && !cart[itemKey]) return;
+
+      if (!cart[itemKey]) {
+        cart[itemKey] = { name: itemDef.name, price: itemDef.price, qty: 0 };
+      }
+
+      cart[itemKey].qty += delta;
+      if (cart[itemKey].qty <= 0) {
+        delete cart[itemKey];
+      }
+
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      // 1. Update Stepper Elements in Catalog
+      for (const key in MENU_CATALOG_DATA) {
+        const span = document.getElementById(`qty-${key}`);
+        if (span) {
+          const qty = (cart[key] ? cart[key].qty : 0);
+          span.innerText = qty;
+          span.classList.toggle('active', qty > 0);
+        }
+      }
+
+      // 2. Calculate Total Items & Total Price
+      let totalQty = 0;
+      let totalRp = 0;
+      for (const key in cart) {
+        totalQty += cart[key].qty;
+        totalRp += (cart[key].price * cart[key].qty);
+      }
+
+      // 3. Update Floating Bar
+      const floatingBar = document.getElementById('floating-cart-bar');
+      const cartCount = document.getElementById('cartCount');
+      const cartTotalRp = document.getElementById('cartTotalRp');
+      const btnModalTotalRp = document.getElementById('btnModalTotalRp');
+
+      if (cartCount) cartCount.innerText = totalQty;
+      if (cartTotalRp) cartTotalRp.innerText = formatRp(totalRp);
+      if (btnModalTotalRp) btnModalTotalRp.innerText = formatRp(totalRp);
+
+      if (floatingBar) {
+        floatingBar.classList.toggle('active', totalQty > 0);
+      }
+
+      // 4. Update Checkout Modal List
+      renderCheckoutList(totalQty, totalRp);
+    }
+
+    function renderCheckoutList(totalQty, totalRp) {
+      const box = document.getElementById('checkoutItemsList');
+      if (!box) return;
+
+      if (totalQty === 0) {
+        box.innerHTML = `<div style="text-align:center; padding: 20px; color: #94a3b8; font-size: 13px;">Belum ada menu yang dipilih. Silakan pilih menu di katalog.</div>`;
+        return;
+      }
+
+      let html = '';
+      for (const key in cart) {
+        const item = cart[key];
+        const subtotal = item.price * item.qty;
+        html += `
+          <div class="checkout-item-row">
+            <div style="flex:1;">
+              <div style="font-size: 13px; font-weight:700; color:#fff;">${item.name}</div>
+              <div style="font-size: 12px; color:var(--accent-orange);">${formatRp(item.price)} x ${item.qty} porsi = <b>${formatRp(subtotal)}</b></div>
+            </div>
+            <div class="cart-stepper" style="padding: 2px 4px;">
+              <button type="button" class="stepper-btn" style="width:24px; height:24px; font-size:12px;" onclick="updateItemQty('${key}', -1)">-</button>
+              <span class="stepper-qty" style="font-size:13px; min-width:18px;">${item.qty}</span>
+              <button type="button" class="stepper-btn" style="width:24px; height:24px; font-size:12px;" onclick="updateItemQty('${key}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `
+        <div class="checkout-total-row">
+          <span style="color:#cbd5e1;">Total Tagihan (${totalQty} Porsi):</span>
+          <span style="color:var(--accent-yellow); font-size: 18px;">${formatRp(totalRp)}</span>
+        </div>
+      `;
+
+      box.innerHTML = html;
+    }
+
+    function filterCatalogCategory(cat) {
+      document.querySelectorAll('.catalog-tab-btn').forEach(b => b.classList.remove('active'));
+      if (event && event.target) {
+        const btn = event.target.closest('.catalog-tab-btn');
+        if (btn) btn.classList.add('active');
+      }
+
+      const sections = ['burger', 'kebab', 'pizza', 'rocas', 'royam'];
+      sections.forEach(s => {
+        const el = document.getElementById(`cat-${s}`);
+        if (el) {
+          if (cat === 'all' || cat === s) {
+            el.style.display = 'grid';
+          } else {
+            el.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    function openCheckoutModal() {
+      let totalQty = 0;
+      for (const k in cart) totalQty += cart[k].qty;
+
+      if (totalQty === 0) {
+        alert("Keranjang pesanan masih kosong! Silakan pilih minimal 1 menu terlebih dahulu.");
+        return;
+      }
+
+      // Close menu modal if open
+      document.getElementById('modal-menu-utama').classList.remove('active');
+      document.getElementById('modal-checkout-wa').classList.add('active');
+    }
+
+    function closeCheckoutModal(e) {
+      if (e.target.id === 'modal-checkout-wa') {
+        document.getElementById('modal-checkout-wa').classList.remove('active');
+      }
+    }
+
+    function setQuickAlamat(val) {
+      const input = document.getElementById('waAlamat');
+      if (input) input.value = val;
+    }
+
+    function setWaktuKirimMode(mode) {
+      waktuKirimMode = mode;
+      const chipSekarang = document.getElementById('chip-sekarang');
+      const chipJadwal = document.getElementById('chip-jadwal');
+      const boxJadwal = document.getElementById('boxWaktuJadwal');
+
+      if (mode === 'sekarang') {
+        chipSekarang.classList.add('active');
+        chipJadwal.classList.remove('active');
+        boxJadwal.style.display = 'none';
+      } else {
+        chipSekarang.classList.remove('active');
+        chipJadwal.classList.add('active');
+        boxJadwal.style.display = 'block';
+        const inputWaktu = document.getElementById('waWaktuCustom');
+        if (inputWaktu && !inputWaktu.value) {
+          const now = new Date();
+          inputWaktu.value = `Hari ini, jam ${(now.getHours() + 1).toString().padStart(2,'0')}.00 WIB`;
+        }
+      }
+    }
+
+    function handleSendWhatsApp(e) {
+      e.preventDefault();
+
+      let totalQty = 0;
+      let totalRp = 0;
+      let itemsLines = [];
+
+      for (const key in cart) {
+        const item = cart[key];
+        totalQty += item.qty;
+        const subtotal = item.price * item.qty;
+        totalRp += subtotal;
+        itemsLines.push(`• ${item.qty}x ${item.name} (${formatRp(subtotal)})`);
+      }
+
+      if (totalQty === 0) {
+        alert("Keranjang pesanan masih kosong! Silakan pilih menu terlebih dahulu.");
+        return;
+      }
+
+      const nama = document.getElementById('waNama').value.trim();
+      const alamat = document.getElementById('waAlamat').value.trim();
+      const catatan = document.getElementById('waCatatan').value.trim();
+
+      let waktuKirim = 'Secepatnya (Sekarang)';
+      if (waktuKirimMode === 'jadwal') {
+        waktuKirim = document.getElementById('waWaktuCustom').value.trim() || 'Sesuai Jadwal';
+      }
+
+      const messageLines = [
+        'Halo Cahya Gallery, saya mau pesan makanan:',
+        '━━━━━━━━━━━━━━━━━━━━━',
+        '📋 *RINCIAN ORDERAN:*',
+        ...itemsLines,
+        '',
+        `🔢 *Total Porsi:* ${totalQty} porsi`,
+        `💰 *Total Tagihan:* *${formatRp(totalRp)}*`,
+        '━━━━━━━━━━━━━━━━━━━━━',
+        `👤 *Nama:* ${nama}`,
+        `📍 *Alamat Kirim:* ${alamat}`,
+        `⏰ *Waktu Kirim:* ${waktuKirim}`,
+        ...(catatan ? [`📝 *Catatan:* ${catatan}`] : []),
+        '━━━━━━━━━━━━━━━━━━━━━',
+        'Mohon konfirmasi pesanan dan ketersediaan stok ya kak. Terima kasih! 🙏'
+      ];
+
+      const fullMessage = messageLines.join('\n');
+      const waUrl = `https://wa.me/6282302425823?text=${encodeURIComponent(fullMessage)}`;
+
+      // Open WhatsApp
+      window.open(waUrl, '_blank');
+
+      // Close modal
+      document.getElementById('modal-checkout-wa').classList.remove('active');
+    }
+
     init();
+    initPizzaConfigurator();
     resetHeroSliderTimer();
   </script>
 </body>
